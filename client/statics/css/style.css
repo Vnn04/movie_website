@@ -32,7 +32,7 @@ h6 {
 
 p {
     font-size: 16px;
-    color: #465b52;
+    color: #222;
     margin: 15px 0 20px 0;
 }
 
@@ -49,7 +49,7 @@ body {
     display: flex; /* căn các phần tử theo chiều ngang góc trên bên phải*/
     align-content: space-between; /* căn chỉnh dòng của phần tử trong flex*/
     padding: 20px; /* thiet lap le cho header*/
-    background-color: rgb(114, 166, 211);
+    background-color: rgb(161, 183, 181);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06); /*thêm bóng cho một phần tử*/
 }
 
@@ -97,10 +97,15 @@ body {
     left: 20px;
 }
 
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
 /* home page */
 #hero {
-    background-image: url("img/hero4.png");
-    height: 90vh;
+    background-image: url("../img/hero4.jpg");
+    height: 140vh;
     width: 100%;
     background-size: cover;
     background-position: top 25% right 0;
@@ -159,7 +164,7 @@ body {
 
 
 #banner {
-    background-image: url(img/banner/b2.jpg);
+    background-image: url(../img/banner/b2.jpg);
 }
 
 #banner h2{
