@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  db-mysql:
+    image: mysql:5.7.40
+    restart: always
+    environment:
+      - MYSQL_DATABASE=BTLthpt
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - dbdata:/data/db1
+    ports:
+      - "3307:3306"
+    # networks:
+    #   - nodejs
+#   backend:
+#     build: ./
+#     depends_on:
+#       - db-mysql
+#     volumes:
+#       - .:/home/node/app
+#       - node_modules:/home/node/app/node_modules
+#     ports:
+#       - 8081:8080
+#     container_name: backend
+#     networks:
+#       - nodejs
+# networks:
+#   nodejs:
+#     driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:
