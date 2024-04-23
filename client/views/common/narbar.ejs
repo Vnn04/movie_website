@@ -1,0 +1,40 @@
+<!-- views/navbar.ejs -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- logo-navbar -->
+    <a class="navbar-brand text-success" href="#">F-MOVIE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- navbar items -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/client/views/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/client/views/utils/movie.html">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Series</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Popular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Trends</a>
+            </li>
+        </ul>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <!-- profile on navbar -->
+        <div class="profile-container ms-3">
+            <img src="../public/imgs/love.jpg" class="rounded-circle profile-picture" alt="img empty">
+            <div class="profile-text-container">
+                <span class="profile-text">Profile</span>
+                <i class="fas fa-caret-down ms-2"></i>
+            </div>
+        </div>
+    </div>
+</nav>
