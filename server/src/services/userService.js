@@ -7,11 +7,11 @@ let handleUserLogin = (username, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       let userData = {};
-      let isExist = await checkUserEmail(username);
+      let isExist = await checkUserEmail(email);
       if (isExist) {
         let user = await db.User.findOne({
-          attributes: ["username", "password"],
-          where: { username: username },
+          attributes: ["email", "password"],
+          where: { email: email },
           raw: true,
         });
         if (user) {
@@ -43,12 +43,12 @@ let handleUserLogin = (username, password) => {
   });
 };
 
-let checkUserEmail = (username) => {
+let checkUserEmail = (email) => {
   return new Promise(async (resolve, reject) => {
     try {
       let user = await db.User.findOne({
         where: {
-          username: username,
+          username: email,
         },
       });
       if (user) {
@@ -67,11 +67,13 @@ let getAllUser = async (userId) => {
     try {
       let users = "";
       if (userId == "ALL") {
+        
         users = await db.User.findAll({
           attributes: {
             exclude: ["password"],
           },
         });
+        console.log("loi o day nhe may bro")
       }
       if (userId && userId != "ALL") {
         users = await db.User.findOne({
@@ -94,14 +96,14 @@ let createNewUser = async (newUser) => {
 
 
       //check xem email da ton tai chua
-      if(!newUser.username || !newUser.password) {
+      if(!newUser.email || !newUser.password) {
         resolve({
           errCode: 1,
           errMessage: 'Missing email or password'
         })
       }
 
-      let check = await checkUserEmail(newUser.username);
+      let check = await checkUserEmail(newUser.email);
       if (check) {
         resolve({
           errCode: 1,
@@ -111,11 +113,15 @@ let createNewUser = async (newUser) => {
       } else {
         let hashPasswordFromBcrypt = await hashUserPassword(newUser.password);
         await db.User.create({
+          email: newUser.email,
           username: newUser.username,
           password: hashPasswordFromBcrypt,
+          date_of_birth: newUser.date_of_birth,
+          phone: newUser.phone,
           fullname: newUser.fullname,
-          age: newUser.age,
           gender: newUser.gender == 1 ? true : false,
+          address: newUser.address,
+          bought_vip: false
         });
         console.log("loi")
         resolve({
@@ -154,6 +160,8 @@ let updateUserData = (data) => {
       });
       if (user) {
         user.fullname = data.fullname;
+        user.username = data.username;
+        user.address = data.address;
         await user.save();
         resolve({
           errCode: 0,

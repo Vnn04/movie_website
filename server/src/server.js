@@ -1,5 +1,8 @@
 import express from "express";
 let { initUserAPIRoutes } = require("./route/userAPI");
+let { initMovieAPIRoutes } = require("./route/movieAPI");
+const { configViewEngine } = require("./config/viewEngine"); //import các config từ file viewEngine
+
 let { connect } = require("./config/connectDB");
 require("dotenv").config();
 let bodyParser = require("body-parser");
@@ -10,12 +13,19 @@ app.use(cors({ origin: true })); // dùng để cho phép nhiều tài nguyên k
 
 let port = process.env.PORT || 6969;
 
+
 //
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extend: true }));
 
+
+//config template engine
+configViewEngine(app);
+
+
 //route
 initUserAPIRoutes(app);
+initMovieAPIRoutes(app)
 
 //check connect db
 connect();

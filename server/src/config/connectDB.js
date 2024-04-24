@@ -5,7 +5,7 @@ const sequelize = new Sequelize("BTLthpt", "root", "123456", {
   host: "localhost",
   port: "3307", //vi dung docker nen can map port 3307:3306, nếu chỗ này không khai báo port thì default là 3306
   dialect: "mysql",
-  logging: true,
+  logging: true
 });
 
 const connect = async () => {
@@ -18,5 +18,6 @@ const connect = async () => {
 };
 
 module.exports = {
-  connect,
+  sequelize,
+  connect
 };
