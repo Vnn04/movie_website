@@ -13,46 +13,56 @@
 </head>
 
 <body>
-   <!-- navbar -->
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!-- logo-navbar -->
-    <a class="navbar-brand text-success" href="#">F-MOVIE</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- navbar items -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/client/views/index.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/client/views/utils/movie.html">Movies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/client/views/utils/series.html">Series</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/client/views/utils/popular.html">Popular</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/client/views/utils/trends.html">Trends</a>
-            </li>
-        </ul>
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-        <!-- profile on navbar -->
-        <div class="profile-container ms-3">
-            <img src="../public/imgs/love.jpg" class="rounded-circle profile-picture" alt="img empty">
-            <div class="profile-text-container">
-                <span class="profile-text">Profile</span>
-                <i class="fas fa-caret-down ms-2"></i>
-            </div>
-        </div>
-    </div>
-</nav>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto p-3">
+      <!-- logo-navbar -->
+      <a class="navbar-brand text-success" href="#">F-MOVIE</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- navbar items -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/client/views/index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/client/views/utils/movie.html">Movies</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Series</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Popular</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Trends</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/client/views/auth/login.html">Login</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/client/views/auth/register.html">Register</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Logout</a>
+              </li>
+          </ul>
+          <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <div class="profile-container ms-3 dropdown">
+              <a href="#" class="d-flex align-items-center text-decoration-none" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="../public/imgs/love.jpg" class="rounded-circle profile-picture" alt="img empty">
+                  <div class="profile-text-container ms-2">
+                      <span class="profile-text">Profile</span>
+                  </div>
+              </a>
+          </div>
+      </div>
+  </nav>
 
 <!-- Filter search -->
 <div class="container mt-4">

@@ -18,7 +18,7 @@
 <body>
 
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto p-3">
         <!-- logo-navbar -->
         <a class="navbar-brand text-success" href="#">F-MOVIE</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -43,18 +43,27 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Trends</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/client/views/auth/login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/client/views/auth/register.html">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            <!-- profile on navbar -->
-            <div class="profile-container ms-3">
-                <img src="../public/imgs/love.jpg" class="rounded-circle profile-picture" alt="img empty">
-                <div class="profile-text-container">
-                    <span class="profile-text">Profile</span>
-                    <i class="fas fa-caret-down ms-2"></i>
-                </div>
+            <div class="profile-container ms-3 dropdown">
+                <a href="#" class="d-flex align-items-center text-decoration-none" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="../public/imgs/love.jpg" class="rounded-circle profile-picture" alt="img empty">
+                    <div class="profile-text-container ms-2">
+                        <span class="profile-text">Profile</span>
+                    </div>
+                </a>
             </div>
         </div>
     </nav>
@@ -69,7 +78,7 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h3 class="card-title">Card title</h3>
-                        <h5><i class="fas fa-star"></i> User score</h5>
+                        <h5><i class="fas fa-star"></i> 8,7</h5>
                         <ul class="nav">
                           <li class="nav-item">
                               <a class="nav-link" href="#">
@@ -78,7 +87,11 @@
                           </li>
                           <li class="nav-item">
                               <a class="nav-link" href="#">
-                                  <i class="fas fa-thumbs-up"></i> Like
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
                               </a>
                           </li>
                           <li class="nav-item">
