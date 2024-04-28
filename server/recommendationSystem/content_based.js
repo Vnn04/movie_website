@@ -15,17 +15,6 @@ class Recommender {
         this.cosine_sim = null; // Stores the cosine similarity matrix
     }
 
-    // Function to read a CSV file
-    async readCSV(filename) {
-        let data = [];
-        return new Promise((resolve, reject) => {
-            fs.createReadStream(filename)
-                .pipe(csv())
-                .on('data', (row) => data.push(row))
-                .on('end', () => resolve(data));
-        });
-    }
-
     async load_data() {
         let con = mysql.createConnection({
             host: "localhost",
