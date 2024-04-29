@@ -27,21 +27,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- navbar items -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/client/views/index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/client/views/utils/movie.html">Movies</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Series</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Popular</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Trends</a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/movie">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/series">Series</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/popular">Popular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/api/playlist">My playlist</a>
+            </li>
               <!-- <li class="nav-item">
                   <a class="nav-link" href="/client/views/auth/login.html">Login</a>
               </li>
@@ -49,8 +49,8 @@
                   <a class="nav-link" href="/client/views/auth/register.html">Register</a>
               </li> -->
               <li class="nav-item">
-                  <a class="nav-link" href="#">Logout</a>
-              </li>
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
           </ul>
           <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -69,7 +69,7 @@
 
 <!-- Filter search -->
 <div class="container mt-4">
-  <h2>TRENDS</h2>
+  <h2>My playlists</h2>
   
   <!-- Filter Section -->
   <div class="row mb-4">
@@ -109,19 +109,20 @@
 
 <div class="row">
     <!-- Movie Card -->
+    <% for(var i = 0; i < movies.length; i++) { %>
     <div class="col-md-4 mb-4">
       <div class="card">
-        <img src="" class="card-img-top" alt="Movie Title">
+        <img src="https://image.tmdb.org/t/p/w1280<%=movies[i].poster_path%>" class="card-img-top" alt="Movie Title">
         <div class="card-body">
-          <h5 class="card-title">Movie Title</h5>
-          <p class="card-text">Movie description goes here.</p>
-          <a href="#" class="btn btn-primary">Watch Now</a>
+          <h5 class="card-title"><%=JSON.stringify(movies[i].title).replace(/"/g, "")%></h5>
+          <p class="card-text"><%=JSON.stringify(movies[i].overview).replace(/"/g, "")%></p>
+          <a href="/api/movie-detail/<%=movies[i].movieId%>" class="btn btn-primary">Watch Now</a>
         </div>
       </div>
     </div>
-    
+    <% } %>
     <!-- Repeat for other movies -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
       <div class="card">
         <img src="" class="card-img-top" alt="Movie Title">
         <div class="card-body">
@@ -141,7 +142,7 @@
           <a href="#" class="btn btn-primary">Watch Now</a>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 

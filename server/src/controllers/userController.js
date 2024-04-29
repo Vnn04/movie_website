@@ -5,19 +5,15 @@ let {
   updateUserData,
   deleteUser
 } = require("../services/userService");
-let handleLogin = async (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-  if (!username || !password) {
-    return res.status(500).json({
-      errCode: 1,
-      errMessage: "Missing input parameter!!!",
-      user: {},
-    });
-  }
 
-  let userData = await handleUserLogin(username, password);
-  return res.status(200).json(userData);
+
+let handleLogin = async (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  let userData = await handleUserLogin(email, password);
+  if(userData.errCode == 0) {
+    res.redirect('/')
+  }else res.render('auth/login.ejs', {userData: userData})
 };
 
 let handleGetAllUsers = async (req, res) => {
@@ -40,13 +36,17 @@ let handleGetAllUsers = async (req, res) => {
 let handleCreateNewUser = async (req, res) => {
   let user = req.body;
   let message = await createNewUser(user);
-  return res.status(200).json(message);
+  return res.render("auth/register.ejs", {message: message});
 };
 
 let handleEditUser = async (req, res) => {
   let data = req.body;
-  let message = await updateUserData(data);
-  return res.status(200).json({message});
+  let user = req.session.user
+  console.log(user.id)
+  let message = await updateUserData(data, user);
+  console.log(message.errCode)
+  res.render('utils/profile.ejs', {user: message.user})
+  // return res.status(200).json({message});
 };
 
 let handleDeleteUser = async (req, res) => {
@@ -59,10 +59,23 @@ let handleDeleteUser = async (req, res) => {
   let message = await deleteUser(req.body.id);
   return res.status(200).json(message);
 };
+
+let handleGetLogin = (req, res) => {
+  let userData = {errCode:0}
+  res.render("auth/login.ejs", {userData: userData});
+}
+
+let handleGetSignUp = (req, res) => {
+  let message = {errMessage: ""}
+  res.render('auth/register.ejs', {message:message});
+}
+
 module.exports = {
   handleLogin,
   handleGetAllUsers,
   handleCreateNewUser,
   handleEditUser,
   handleDeleteUser,
+  handleGetLogin,
+  handleGetSignUp
 };

@@ -28,19 +28,19 @@
             <!-- navbar items -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/client/views/index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/client/views/utils/movie.html">Movies</a>
+                    <a class="nav-link" href="/api/movie">Movies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/client/views/utils/series.html">Series</a>
+                    <a class="nav-link" href="/api/series">Series</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/client/views/utils/popular.html">Popular</a>
+                    <a class="nav-link" href="/api/popular">Popular</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/client/views/utils/trends.html">Trends</a>
+                    <a class="nav-link" href="/api/playlist">My playlists</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="/client/views/auth/login.html">Login</a>
@@ -49,7 +49,7 @@
                     <a class="nav-link" href="/client/views/auth/register.html">Register</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -57,10 +57,9 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <div class="profile-container ms-3 dropdown">
-                <a href="client/views/utils/profile.html" class="d-flex align-items-center text-decoration-none" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../public/imgs/love.jpg" class="rounded-circle profile-picture" alt="img empty">
+                <a href="/api/profile" class="d-flex align-items-center text-decoration-none" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="profile-text-container ms-2">
-                        <span class="profile-text">Profile</span>
+                        <a href="/api/profile"><span class="profile-text"><i class="fa fa-user"></i></span></a>
                     </div>
                 </a>
             </div>
@@ -123,7 +122,19 @@
                 <div class="row">
                     <!-- Sample Movie List Items -->
                     <!-- You can dynamically generate these items in your backend -->
-                    <div class="movie-list-item col-md-4 mb-4">
+                    <% for(var i = 0; i < 15; i++) { %>
+                        <div class="movie-list-item col-md-4 mb-4">
+                            <div class="card">
+                                <img class="card-img-top movie-list-item-img" src="https://image.tmdb.org/t/p/w1280<%=listMovies[i].poster_path%>" alt="Movie Poster">
+                                <div class="card-body">
+                                    <h5 class="card-title movie-list-item-title"><%=JSON.stringify(listMovies[i].title).replace(/"/g, "")%></h5>
+                                    <p class="card-text movie-list-item-desc"><%=JSON.stringify(listMovies[i].overview).replace(/"/g, "")%></p>
+                                    <a href="/api/movie-detail/<%=listMovies[i].id%>" class="btn btn-primary">Watch</a>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    <!-- <div class="movie-list-item col-md-4 mb-4">
                         <div class="card">
                             <img class="card-img-top movie-list-item-img" src="../public/imgs/1.jpeg"
                                 alt="Movie Poster">
@@ -225,20 +236,7 @@
                                 <a href="utils/movie_details.html" class="btn btn-primary">Watch</a>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="movie-list-item col-md-4 mb-4">
-                        <div class="card">
-                            <img class="card-img-top movie-list-item-img" src="../public/imgs/1.jpeg"
-                                alt="Movie Poster">
-                            <div class="card-body">
-                                <h5 class="card-title movie-list-item-title">Her</h5>
-                                <p class="card-text movie-list-item-desc">Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. At hic fugit similique accusantium.</p>
-                                <a href="utils/movie_details.html" class="btn btn-primary">Watch</a>
-                            </div>
-                        </div>
-                    </div>
+                    </div> -->
 
                     <!-- More movie list items can be added similarly -->
                 </div>

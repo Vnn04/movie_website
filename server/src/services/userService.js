@@ -3,14 +3,14 @@ import bcrypt, { hash } from "bcryptjs"; // dung de hash password
 import { where } from "sequelize";
 const salt = bcrypt.genSaltSync(10);
 
-let handleUserLogin = (username, password) => {
+let handleUserLogin = (email, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       let userData = {};
       let isExist = await checkUserEmail(email);
       if (isExist) {
         let user = await db.User.findOne({
-          attributes: ["email", "password"],
+          // attributes: ["email", "password"],
           where: { email: email },
           raw: true,
         });
@@ -22,11 +22,11 @@ let handleUserLogin = (username, password) => {
             userData.errCode = 0;
             userData.errMessage = "Login successfully";
           } else {
-            userData.errCode = 3;
+            userData.errCode = 1;
             userData.errMessage = "Password is not true";
           }
         } else {
-          userData.errCode = 2;
+          userData.errCode = 1;
           userData.errMessage = "User email is not exist";
         }
         userData.user = user;
@@ -48,7 +48,7 @@ let checkUserEmail = (email) => {
     try {
       let user = await db.User.findOne({
         where: {
-          username: email,
+          email: email,
         },
       });
       if (user) {
@@ -93,8 +93,6 @@ let getAllUser = async (userId) => {
 let createNewUser = async (newUser) => {
   return new Promise(async (resolve, reject) => {
     try {
-
-
       //check xem email da ton tai chua
       if(!newUser.email || !newUser.password) {
         resolve({
@@ -146,26 +144,28 @@ let hashUserPassword = (password) => {
   });
 };
 
-let updateUserData = (data) => {
+let updateUserData = (data, user) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.id) {
+      if (!user.id) {
         resolve({
           errCode: 2,
           errMessage: "Missing id parameter",
         });
       }
-      let user = await db.User.findOne({
-        where: { id: data.id },
+      let user1 = await db.User.findOne({
+        where: { id: user.id },
       });
       if (user) {
-        user.fullname = data.fullname;
-        user.username = data.username;
-        user.address = data.address;
-        await user.save();
+        user1.username = data.username;
+        user1.phone = data.phone;
+        user1.address = data.address;
+        user1.date_of_birth = data.date_of_birth
+        await user1.save();
         resolve({
           errCode: 0,
           errMessage: "Update user success",
+          user: user1
         });
       } else {
         resolve({
@@ -205,6 +205,11 @@ let deleteUser = (userId) => {
   });
 };
 
+let handleGetSignUp = (req, res) => {
+  message = {errMessage: ""}
+  res.render('auth/register.ejs', errMessage);
+}
+
 
 
 module.exports = {
@@ -213,4 +218,5 @@ module.exports = {
   createNewUser,
   updateUserData,
   deleteUser,
+
 };

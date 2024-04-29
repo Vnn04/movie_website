@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+</head>
+<body>
+    <div class="login-form">
+        <h1>Reset Form</h1>
+        <form action="/password/reset" method="POST">
+            <input type="hidden" value="<%=token%>" name="token">
+            <input type="text" value="<%=email%>" name="email" placeholder="Email" required readonly>
+            <input type="password" name="password" placeholder="Enter your password" required>
+            <input type="submit">
+        </form>
+        <a href="/login">Login</a>
+    </div>
+</body>
+</html>

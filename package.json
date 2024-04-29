@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "express-session": "^1.18.0",
+    "serpapi": "^2.1.0"
+  }
+}
