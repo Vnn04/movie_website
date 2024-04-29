@@ -1,17 +1,5 @@
 {
-  "name": "recommendationsystem",
-  "version": "1.0.0",
-  "description": "",
-  "main": "content_based.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "csv-parser": "^3.0.0",
-    "mathjs": "^12.4.2",
-    "mysql": "^2.18.1"
+    "axios": "^1.6.8"
   }
 }
