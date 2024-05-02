@@ -114,6 +114,13 @@
   </button>
 </div>
 
+<!-- Button đổi mật khẩu -->
+<div class="d-grid gap-2 col-4 mx-auto">
+  <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+    Đổi mật khẩu
+  </button>
+</div>
+
 
 
 <!-- Modal chỉnh sửa thông tin cá nhân -->
@@ -146,6 +153,39 @@
           <div class="mb-3">
             <label for="editUserBirthday" class="form-label">Birthday</label>
             <input type="date" class="form-control" id="editUserBirthday">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal đổi mật khẩu -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật khẩu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form để đổi mật khẩu -->
+        <form>
+          <div class="mb-3">
+            <label for="currentPassword" class="form-label">Mật khẩu hiện tại</label>
+            <input type="password" class="form-control" id="currentPassword">
+          </div>
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">Mật khẩu mới</label>
+            <input type="password" class="form-control" id="newPassword">
+          </div>
+          <div class="mb-3">
+            <label for="confirmNewPassword" class="form-label">Xác nhận mật khẩu mới</label>
+            <input type="password" class="form-control" id="confirmNewPassword">
           </div>
         </form>
       </div>
