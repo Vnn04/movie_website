@@ -16,9 +16,10 @@ let handleUserLogin = (email, password) => {
         });
         if (user) {
           //compare password
-          let checkPassword = bcrypt.compareSync(password, user.password);
+          let checkPasswordHash = bcrypt.compareSync(password, user.password);
+          let checkPassword = password == user.password;
           delete user.password;
-          if (checkPassword) {
+          if (checkPassword || checkPasswordHash) {
             userData.errCode = 0;
             userData.errMessage = "Login successfully";
           } else {

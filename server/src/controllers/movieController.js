@@ -4,13 +4,22 @@ let {
   searchMovieByName,
   saveAddList,
   getAllMovieHistory,
+  getAllMoviesRecommend,
+  getMovieOrderByRating,
+  getMoviesTopView
 } = require("../services/movieService");
 require("dotenv").config();
 const { getJson } = require("serpapi");
-
+// var recommendations;
+var allMovies;
+var moviesTopRating;
 let handleGetAllMovie = async (req, res) => {
-  let movies = await getAllMovies();
-  return res.render("index.ejs", { listMovies: movies });
+  // const userID = req.session.user.id;
+  // let recommendMovies = await getAllMoviesRecommend(userID);
+  // recommendations = await getAllMoviesRecommend(userID);
+  allMovies = await getAllMovies();
+  moviesTopRating = await getMovieOrderByRating();
+  return res.render("index.ejs", { listMovies: allMovies, moviesTopRating: moviesTopRating});
 };
 
 let handleGetSeries = (req, res) => {
@@ -22,11 +31,12 @@ let handleGetMovie = (req, res) => {
   return res.render("utils/movie.ejs", { movies: movies });
 };
 
-let handleGetPopular = (req, res) => {
-  return res.render("utils/popular.ejs");
+let handleGetPopular = async (req, res) => {
+  let moviesTopView = await getMoviesTopView();
+  return res.render("utils/popular.ejs", {moviesV: moviesTopView});
 };
 
-let handleGetTrend = async (req, res) => {
+let handleGetPlaylist = async (req, res) => {
   const userId = req.session.user.id;
   let movies = await getAllMovieHistory(userId);
   console.log(movies);
@@ -38,7 +48,7 @@ let handleGetMovieDetail = async (req, res) => {
   let movie = await getMovieById(movieId);
   let movieTitle = ""
   if(movie.title) {
-    movieTitle = movie.title;
+    movieTitle = movie.title + "movie";
   }
   console.log("movietitle neee: ", movieTitle);
   const results = await getJson({
@@ -71,14 +81,19 @@ let handleAddList = async (req, res) => {
   console.log(message.errCode);
   res.redirect(`/api/movie-detail/${movieId}`);
 };
+
+let handleGetHomeAfterLogin = (req, res) => {
+  res.render('index.ejs', {listMovies: allMovies, moviesTopRating: moviesTopRating});
+}
 module.exports = {
   handleGetAllMovie,
   handleGetSeries,
   handleGetMovie,
   handleGetPopular,
-  handleGetTrend,
+  handleGetPlaylist,
   handleGetMovieDetail,
   handleSearchFilmByName,
   handleGetProfile,
   handleAddList,
+  handleGetHomeAfterLogin
 };

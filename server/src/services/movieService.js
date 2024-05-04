@@ -1,6 +1,7 @@
 import db from "../models/index";
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+// let {getRecommendationsByUserID} = require("../../recommendationSystem/server")
 
 let getAllMovies = () => {
     return new Promise(async(resolve, reject)=> {
@@ -108,10 +109,65 @@ let saveAddList = (movieId, userId) => {
         }
     })
 }
+//recommendation
+let getAllMoviesRecommend = (userID) => {
+    return new Promise(async(resolve, reject)=>{
+        try {
+            const recommendations = await getRecommendationsByUserID(userID);
+            const movies = recommendations.result;
+            let moviesJson = []
+            let movieJson = {}
+            movies.forEach(async (movie) => {
+                movieJson = await getMovieById(movie);
+                moviesJson.push(movieJson);
+            });
+            resolve(moviesJson);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getMovieOrderByRating = () => {
+    return new Promise(async(resolve, reject)=> {
+        try {
+            let movies = await db.sequelize.query(
+                `SELECT m.id, m.title, m.poster_path, m.release_date, r.rating FROM Movies m RIGHT JOIN rating r ON m.id = r.movieID 
+                ORDER BY r.rating DESC`,
+                {
+                    type: db.sequelize.QueryTypes.SELECT
+                }
+            );
+            resolve(movies);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getMoviesTopView = () => {
+    return new Promise(async(resolve, reject)=> {
+        try {
+            let movies = await db.sequelize.query(
+                `SELECT m.id, m.title, m.poster_path, m.release_date FROM Movies m RIGHT JOIN Viewed v ON m.id = v.movieID 
+                ORDER BY v.view DESC`,
+                {
+                    type: db.sequelize.QueryTypes.SELECT
+                }
+            );
+            resolve(movies);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
     getAllMovies,
     getMovieById,
     searchMovieByName,
     saveAddList,
-    getAllMovieHistory
+    getAllMovieHistory,
+    getAllMoviesRecommend, 
+    getMovieOrderByRating,
+    getMoviesTopView
 }

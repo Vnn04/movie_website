@@ -4,11 +4,12 @@ let {
   handleGetSeries,
   handleGetMovie,
   handleGetPopular,
-  handleGetTrend,
+  handleGetPlaylist,
   handleGetMovieDetail,
   handleSearchFilmByName,
   handleGetProfile,
   handleAddList,
+  handleGetHomeAfterLogin
 } = require("../controllers/movieController");
 let router = express.Router();
 let authMiddleware = require("../middleware/auth.middleware");
@@ -18,12 +19,13 @@ let initMovieAPIRoutes = (app) => {
   router.get("/api/series", handleGetSeries);
   router.get("/api/movie", handleGetMovie);
   router.get("/api/popular", handleGetPopular);
-  router.get("/api/playlist", handleGetTrend);
+  router.get("/api/playlist", handleGetPlaylist);
   router.get("/api/movie-detail/:id", handleGetMovieDetail);
   router.get("/api/profile", handleGetProfile);
   router.get("/add-list/:id", handleAddList);
   router.post("/search", handleSearchFilmByName);
 
+  router.get("/api/get-home-after-login", handleGetHomeAfterLogin);
   return app.use("/", router);
 };
 

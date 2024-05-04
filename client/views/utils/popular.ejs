@@ -10,7 +10,9 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../../public/css/navbar.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
       rel="stylesheet"
@@ -20,6 +22,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
     />
     <title>Movie Film</title>
+    <style>
+            .img {
+        width: 300px;
+        height: 400px;
+        border: 1px solid #000;
+        padding: 10px;
+      }
+    </style>
   </head>
 
   <body>
@@ -42,7 +52,7 @@
         <!-- navbar items -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/">Home</a>
+            <a class="nav-link" aria-current="page" href="/api/get-home-after-login">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/api/movie">Movies</a>
@@ -133,17 +143,21 @@
     </div> -->
       </div>
     </div>
+    <div id="tvchart"><% moviesV %></div>
 
     <script>
       // Mảng chứa các thẻ phim
-      const movies = [
-        { title: "Movie 1", image: "../public/imgs/1.jpg" },
-        { title: "Movie 2", image: "../public/imgs/2.jpg" },
-        { title: "Movie 3", image: "../public/imgs/3.jpg" },
-        { title: "Movie 4", image: "../public/imgs/4.jpg" },
-        { title: "Movie 5", image: "../public/imgs/5.jpg" },
-        { title: "Movie 6", image: "../public/imgs/6.jpg" },
-      ];
+      let movies = [];
+      <% for(let i = 0; i < 9; i++) { %>
+        movies.push({id: '<%=moviesV[i].id%>', title: '<%=moviesV[i].title%>', image: "https://image.tmdb.org/t/p/w1280<%=moviesV[i].poster_path%>"})
+      <% } %>
+      // const movies = [
+      //   { title: "Movie 2", image: "../public/imgs/2.jpg" },
+      //   { title: "Movie 3", image: "../public/imgs/3.jpg" },
+      //   { title: "Movie 4", image: "../public/imgs/4.jpg" },
+      //   { title: "Movie 5", image: "../public/imgs/5.jpg" },
+      //   { title: "Movie 6", image: "../public/imgs/6.jpg" },
+      // ];
 
       // Số lượng phim mỗi trang
       const moviesPerPage = 3;
@@ -160,10 +174,10 @@
         displayedMovies.forEach((movie) => {
           const movieCard = `
                 <div class="card">
-                    <img src="${movie.image}" class="card-img-top" alt="${movie.title}">
+                    <img src="${movie.image}" class="card-img-top img" alt="${movie.title}">
                     <div class="card-body">
                         <h5 class="card-title">${movie.title}</h5>
-                        <a href="#" class="btn btn-primary">Watch</a>
+                        <a href="/api/movie-detail/${movie.id}" class="btn btn-primary">Watch</a>
                     </div>
                 </div>
             `;
