@@ -17,19 +17,13 @@ watch_trailer_recommend.load_data()
 watch_trailer_recommend.preprocess_data()
 content_based = RecommendationContentBased()
 
-@app.before_request
-def startup_rating():
-    rating_recommend.train()
+rating_recommend.train()
 
-@app.before_request
-def startup_view():
-    view_recommend.train()
+view_recommend.train()
 
-@app.before_request
-def startup_watch():
-    watch_trailer_recommend.train()
+watch_trailer_recommend.train()
 
-    content_based.load_data()
+content_based.load_data()
 
 @app.route('/recommend_by_movieID', methods=['POST'])
 def recommend_by_movieID():
