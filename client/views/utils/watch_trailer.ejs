@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../public/css/navbar.css">
+    <link rel="stylesheet" href="/css/navbar.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link href="imgs/favicon.ico" type="image/x-icon" rel="icon" />
+
     <title>Movie Film</title>
 </head>
 
@@ -27,19 +29,19 @@
           <!-- navbar items -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/client/views/index.html">Home</a>
+                  <a class="nav-link active" aria-current="page" href="/api/get-home-after-login">Home</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/client/views/utils/movie.html">Movies</a>
+                  <a class="nav-link" href="/api/movie">Movies</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Series</a>
+                  <a class="nav-link" href="/api/series">Series</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Popular</a>
+                  <a class="nav-link" href="/api/popular">Popular</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Trends</a>
+                  <a class="nav-link" href="/api/playlist">My playlist</a>
               </li>
               <!-- <li class="nav-item">
                   <a class="nav-link" href="/client/views/auth/login.html">Login</a>
@@ -48,7 +50,7 @@
                   <a class="nav-link" href="/client/views/auth/register.html">Register</a>
               </li> -->
               <li class="nav-item">
-                  <a class="nav-link" href="#">Logout</a>
+                  <a class="nav-link" href="/logout">Logout</a>
               </li>
           </ul>
           <form class="d-flex">
@@ -72,18 +74,20 @@
         <!-- Video player -->
         <div class="col-lg-8 col-md-12">
             <div style="position: relative; width: 110%; height: 0; padding-bottom: 67.5%; margin-left: -105px; border-radius: 15px; overflow: hidden;">
-                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover;" src="https://www.youtube.com/embed/4nrG6SHM-rY" allowfullscreen></iframe>
+                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover;" src="https://www.youtube.com/embed/<%=videoId%>" allowfullscreen></iframe>
             </div>
         </div>
         <!-- Recommended videos -->
         <div class="col-lg-4 col-md-12">
             <h5>Có thể bạn thích</h5>
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_1" alt="Movie 1" width="100">
-                    <p>Movie 1</p>
+                <% for (let i = 0; i < 5; i++) { %>
+                <a href="/api/movie-detail/<%=moviesRCMDT[i].id%>" class="list-group-item list-group-item-action">
+                    <img src="https://image.tmdb.org/t/p/w1280<%=moviesRCMDT[i].poster_path%>" alt="Movie 1" width="100">
+                    <p><%= JSON.stringify(moviesRCMDT[i].title).replace(/"/g, '') %></p>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <% } %>
+                <!-- <a href="#" class="list-group-item list-group-item-action">
                     <img src="path_to_image_of_movie_2" alt="Movie 2" width="100">
                     <p>Movie 2</p>
                 </a>
@@ -118,7 +122,7 @@
                 <a href="#" class="list-group-item list-group-item-action">
                     <img src="path_to_image_of_movie_10" alt="Movie 10" width="100">
                     <p>Movie 10</p>
-                </a>
+                </a> -->
 
             </div>
         </div>

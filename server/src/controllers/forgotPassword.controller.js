@@ -1,4 +1,4 @@
-const { createNewUser } = require("../services/userService");
+// const { createNewUser } = require("../services/userService");
 const bcrypt = require("bcrypt");
 const mailer = require('../utils/mailer')
 const db = require("../models/index");
@@ -12,35 +12,21 @@ exports.sendResetLinkEmail = async(req, res) => {
     if(!req.body.email) {
         res.redirect('/password/reset')
     } else {
-
-        // await db.User.findOne({
-        //     where: {email: req.body.email}
-        // }, (user, err) => {
-        //     if(!user) {
-
-        //         res.redirect('/password/reset')
-        //     } else {
-                
-        //         bcrypt.hash(user.email, parseInt(process.env.BRYPT_SALT_ROUND)).then((hashEmail)=>{
-        //             console.log(`${process.env.APP_URL}/password/reset/${user.email}&token=${hashEmail}`);
-        //             mailer.sendMail(user.email, "Reset password", `<a href="${process.env.APP_URL}/password/reset/${user.email}&token=${hashEmail}"> Reset password </a>`)
-        //           })
-        //         res.redirect('/password/reset?status=success')
-        //     }
-        // })
         let user = await db.User.findOne({
             where: {email: req.body.email}
         });
+        let message = ""
         console.log(user);
         if(!user) {
-            let message = "loi roi"
+            message = "loi roi"
             res.render('auth/passwords/email', {message:message})
         } else {
             bcrypt.hash(user.email, parseInt(process.env.BRYPT_SALT_ROUND)).then((hashEmail)=>{
                 console.log(`${process.env.APP_URL}/password/reset/${user.email}&token=${hashEmail}`);
                 mailer.sendMail(user.email, "Reset password", `<a href="${process.env.APP_URL}/password/reset/${user.email}?token=${hashEmail}"> Reset password </a>`)
               })
-            res.redirect('/password/reset?status=success')
+            message = "Thành công, check email để reset password !"
+            res.render('auth/passwords/email', {message:message})
         }
     }
 }
@@ -74,7 +60,6 @@ exports.reset = (req, res) => {
                         
                         let updateUser = await user.update({
                             password: hashPassword,
-                            username: "dungdeptrai"
                         })
                         console.log(updateUser);
                         if(updateUser) {

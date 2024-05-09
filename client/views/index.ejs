@@ -17,9 +17,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <title>Movie Film</title>
-    <style>
-        
-    </style>
+    <link href="/imgs/favicon.ico" type="image/x-icon" rel="icon" />
+
 </head>
 
 <body>
@@ -132,20 +131,20 @@
     <!-- feature -->
     <div class="row mt-5 m-auto p-2">
         <div class="col-md-12">
-            <h1 class="movie-list-title">FEATURE LIST</h1>
+            <h1 class="movie-list-title">RECOMMEND FOR YOU</h1>
             <div class="movie-list-wrapper">
                 <div class="row">
-                    <!-- <% for (let i = 0; i < 6; i++) { %>
+                    <% for (let i = 0; i < 6; i++) { %>
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <img src="https://image.tmdb.org/t/p/w1280?listRCMDT[i].poster_path" class="card-img-top" alt="JSON.stringify(listRCMDT[i].title)">
+                            <img src="https://image.tmdb.org/t/p/w1280/<%=listRCMDT[i].poster_path%>" class="card-img-top" alt="<%=JSON.stringify(listRCMDT[i].title)%>">
                             <div class="card-body">
-                                <p class="card-text">JSON.stringify(listRCMDT[i].title)</p>
+                                <p class="card-text"><%=JSON.stringify(listRCMDT[i].title)%></p>
                             </div>
                         </div>
                     </div>
-                    <% } %> -->
-                    <div class="col-md-4 mb-3">
+                    <% } %>
+                    <!-- <div class="col-md-4 mb-3">
                         <div class="card">
                             <img src="..." class="card-img-top" alt="...">
                             <div class="card-body">
@@ -167,7 +166,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Footer Section -->
     <footer class="footer mt-5 bg-dark text-white pt-4 pb-4">

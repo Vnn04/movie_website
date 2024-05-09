@@ -1,7 +1,7 @@
 import db from "../models/index";
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-// let {getRecommendationsByUserID} = require("../../recommendationSystem/server")
+let {getRecommendationsByUserID,getRecommendationsByMovieID} = require("../../recommendationSystem/server")
 
 let getAllMovies = () => {
     return new Promise(async(resolve, reject)=> {
@@ -161,6 +161,86 @@ let getMoviesTopView = () => {
         }
     })
 }
+
+let getAllMoviesRecommendByMovieID = (movieId) => {
+    return new Promise(async(resolve, reject)=>{
+        try {
+            const movieID = parseInt(movieId)
+            const recommendations = await getRecommendationsByMovieID(movieID);
+            const movies = recommendations.result;
+            let moviesJson = []
+            let movieJson = {}
+            movies.forEach(async (movie) => {
+                movieJson = await getMovieById(movie);
+                moviesJson.push(movieJson);
+            });
+            resolve(moviesJson);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let checkMovie = (title) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let movie = await db.Movie.findOne({
+        where: {
+          title: title,
+        },
+      });
+      if (movie) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let addNewMovie = async(movie) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+          //check xem movie da ton tai chua
+          if(!movie.title) {
+            resolve({
+              errCode: 1,
+              errMessage: 'Missing email or password'
+            })
+          }
+          let check = await checkMovie(movie.title);
+          if (check) {
+            resolve({
+              errCode: 1,
+              errMessage:
+                "Movie existed in database, please try another movie",
+            });
+          } else {
+            await db.Movie.create({
+              id: movie.id,
+              title: movie.title,
+            });
+            resolve({
+              errCode: 0,
+              errMessage: "Add new movie success",
+            });
+          }
+        } catch (e) {
+          reject(e);
+        }
+      });
+}
+
+// overview: movie.overview,
+// poster_path: movie.poster_path,
+// release_date: movie.release_date,
+// genres: movie.genres,
+// rating: movie.rating,
+// link: movie.link,
+// cast: movie.cast
+
 module.exports = {
     getAllMovies,
     getMovieById,
@@ -169,5 +249,7 @@ module.exports = {
     getAllMovieHistory,
     getAllMoviesRecommend, 
     getMovieOrderByRating,
-    getMoviesTopView
+    getMoviesTopView,
+    getAllMoviesRecommendByMovieID,
+    addNewMovie
 }

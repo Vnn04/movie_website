@@ -10,8 +10,8 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/navbar.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/style.css" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
@@ -21,6 +21,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
     />
+    <link href="/imgs/favicon.ico" type="image/x-icon" rel="icon" />
+
     <title>Movie Film</title>
     <style>
       .img {
@@ -107,7 +109,7 @@
       </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container container_movie_detail">
       <!-- Banner đầu trang -->
       <div class="card text-bg-secondary">
         <div class="row g-0">
@@ -143,7 +145,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="<%=movie.link%>">
+                  <a class="nav-link" href="/api/watch-trailer/<%=movie.id%>">
                     <i class="fas fa-play-circle"></i> Play trailer
                   </a>
                 </li>
@@ -170,7 +172,7 @@
         <% for(var i=0; i < 8; i++) { %>
         <div class="col-md-3">
           <div class="card">
-            <img src="<%=images[i].original%>" class="img" alt="<%=JSON.stringify(movie.title)%>" />
+            <img src="images[i].original" class="img" alt="<%=JSON.stringify(movie.title)%>" />
             <!-- <div class="card-body">
               <p class="card-text">
                 Some quick example text to build on the card title and make up
@@ -181,7 +183,22 @@
         </div>
         <% } %>
     </div>
+    <div><h2>Recommended movies</h2></div>
+    <div class="movie-list-wrapper">
+      <div class="row">
+    <% for (let i = 0; i < 6; i++) { %>
 
+    <div class="movie-list-item col-md-2 mb-4">
+      <div class="card bgw">
+          <a href="/api/movie-detail/<%=movieRCM[i].id%>" class=""><img class="card-img-top movie-list-item-img img-r " src="https://image.tmdb.org/t/p/w1280<%=movieRCM[i].poster_path%>" alt="Movie Poster"></a>
+          <div class="card-body data">
+              <h5 class="card-title movie-list-item-title"><%=JSON.stringify(movieRCM[i].title).replace(/"/g, "")%></h5>
+          </div>
+      </div>
+  </div>
+  <% } %>
+  </div>
+  </div>
     <!-- Footer Section -->
     <footer class="footer mt-5 bg-dark text-white pt-4 pb-4">
       <div class="container">

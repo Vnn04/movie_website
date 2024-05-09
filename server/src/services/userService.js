@@ -20,6 +20,9 @@ let handleUserLogin = (email, password) => {
           let checkPassword = password == user.password;
           delete user.password;
           if (checkPassword || checkPasswordHash) {
+            await db.Visit.create({
+              userID: user.id,
+            })
             userData.errCode = 0;
             userData.errMessage = "Login successfully";
           } else {

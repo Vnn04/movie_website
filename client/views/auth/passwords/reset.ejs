@@ -4,17 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-form {
+            width: 300px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+
+        .login-form h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .login-form input[type="submit"] {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .login-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .login-form a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .login-form a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-form label {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="login-form">
-        <h1>Reset Form</h1>
+        <h1>Reset Password</h1>
         <form action="/password/reset" method="POST">
             <input type="hidden" value="<%=token%>" name="token">
-            <input type="text" value="<%=email%>" name="email" placeholder="Email" required readonly>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <input type="submit">
+            <label for="email">Email:</label>
+            <input type="text" value="<%=email%>" name="email" id="email" placeholder="Email" required readonly>
+            <label for="password">New Password:</label>
+            <input type="password" name="password" id="password" placeholder="Enter your new password" required>
+            <input type="submit" value="Reset Password">
         </form>
-        <a href="/login">Login</a>
+        <a href="/login">Back to Login</a>
     </div>
 </body>
 </html>

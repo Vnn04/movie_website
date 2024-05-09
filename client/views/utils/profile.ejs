@@ -11,6 +11,8 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link href="/imgs/favicon.ico" type="image/x-icon" rel="icon" />
+
     <!-- Custom CSS -->
     <style>
       /* Custom styles */
@@ -66,33 +68,9 @@
             <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+       
         <div class="profile-container ms-3 dropdown">
-          <a
-            href="#"
-            class="d-flex align-items-center text-decoration-none"
-            id="profileDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="../../public/imgs/love.jpg"
-              class="rounded-circle profile-picture"
-              alt="img empty"
-            />
-            <div class="profile-text-container ms-2">
-              <span class="profile-text">Profile</span>
-            </div>
-          </a>
+
         </div>
       </div>
     </nav>
@@ -101,8 +79,8 @@
       <div class="row">
         <div class="col-md-4">
           <!-- User Avatar and Name -->
-          <img src="avatar.jpg" alt="Avatar" class="profile-avatar" />
-          <h2>User Name</h2>
+          <img src="/imgs/love.jpg" alt="Avatar" class="profile-avatar" />
+          <h2><%=JSON.stringify(user.username).replace(/"/g, "")%></h2>
         </div>
         <div class="col-md-8">
           <!-- Display User Information with Edit Button -->

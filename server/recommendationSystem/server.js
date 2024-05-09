@@ -32,8 +32,8 @@ async function getRecommendationsByUserID(userID) {
 
 // Sử dụng các hàm trên
 
-const movieID = 693134;
-const userID = 0;
+const movieID = 254;
+const userID = 202;
 
 // getRecommendationsByMovieID(movieID)
 //     .then(recommendations => {
@@ -55,5 +55,6 @@ const userID = 0;
 //     });
 
 module.exports = {
-    getRecommendationsByUserID
+    getRecommendationsByUserID,
+    getRecommendationsByMovieID
 }
