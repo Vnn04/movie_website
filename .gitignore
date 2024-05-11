@@ -1,3 +1,4 @@
 
-/server/recommendationSystem/node_modules
+/server/node_modules
 /server/recommendationSystem/__pycache__
+/server/recommendationSystem/node_modules
