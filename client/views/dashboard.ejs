@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Montserrat Font-->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- Montserrat Icon-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <div class="grid-container">
+        <!-- Header -->
+        <header class="header">
+            <!-- <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-symbols-outlined">menu</span>
+            </div>
+            <div class="header-left">
+                <span class="material-icons-outlined">search</span>
+            </div>
+            <div class="header-right">
+                <span class="material-icons-outlined">notifications</span>
+                <span class="material-icons-outlined">mail</span>
+                <span class="material-icons-outlined">account_circle</span>
+            </div> -->
+        </header>
+        <!-- End Header -->
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">admin_panel_settings</span> ADMIN
+                </div>
+                <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">dashboard</span> Dashboard
+                </li>
+                <a href="/get/admin" class="a">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">manage_accounts</span> Manage
+                </li>
+                </a>
+                <a href="/api/get-home-after-login" class="a">
+                    <li class="sidebar-list-item">
+                        <span class="material-icons-outlined">home</span> Home
+                     </li>
+                </a>
+                
+                <!--<li class="sidebar-list-item">
+                    <span class="material-icons-outlined">groups</span> Customers
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">fact_check</span> Inventory
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">poll</span>Reports
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">settings</span> Settings
+                </li> -->
+            </ul>
+        </aside>
+        <!-- End Sidebar -->
+
+        <!-- Main -->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>DASHBOARD</h2>
+            </div>
+            <div class="main-cards">
+
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>MOVIES</h3>
+                        <span class="material-icons-outlined">movie</span>
+                    </div>
+                    <h1><%=JSON.stringify(moviesCount).replace(/"/g, "")%></h1>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>CATEGORIES</h3>
+                        <span class="material-icons-outlined">category</span>
+                    </div>
+                    <h1>19</h1>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>USERS</h3>
+                        <span class="material-icons-outlined">groups</span>
+                    </div>
+                    <h1><%=JSON.stringify(usersCount).replace(/"/g, "")%></h1>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>VISITS</h3>
+                        <span class="material-icons-outlined">visibility</span>
+                    </div>
+                    <h1><%=JSON.stringify(visitsCount).replace(/"/g, "")%></h1>
+                </div>
+
+            </div>
+
+            <div class="charts">
+                <div class="charts-card">
+                    <h2 class="chart-title">Top 5 Products</h2>
+                    <div id="bar-chart"></div>
+                </div>
+        
+                <div class="charts-card">
+                    <h2 class="chart-title">Purchase and Sales Orders</h2>
+                    <div id="area-chart"></div>
+                </div>
+            </div>
+
+        </main>
+        <!-- End Main -->
+
+    </div>
+    <!-- Scripts -->
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.0/apexcharts.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

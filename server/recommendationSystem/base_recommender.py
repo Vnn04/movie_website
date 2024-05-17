@@ -39,6 +39,6 @@ class BaseRecommender:
         unseen_movies = np.where(self.R[user_id, :] == 0)[0]
         predicted_ratings = [self.predict(user_id, movie_id) for movie_id in unseen_movies]
         recommended_movie_ids = np.argsort(predicted_ratings)[-top_n:]
-        movies_recommended = self.movies.iloc[recommended_movie_ids]['movieID'].values
+        movies_recommended = self.movies.iloc[recommended_movie_ids]['id'].values
         origin_movieID = [self.unique_movie_ids[index] for index in movies_recommended]
         return origin_movieID

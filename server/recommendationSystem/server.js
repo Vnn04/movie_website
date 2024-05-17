@@ -32,21 +32,29 @@ async function getRecommendationsByUserID(userID) {
 
 // Sử dụng các hàm trên
 
-const movieID = 693134;
-const userID = 0;
+const movieID = 254;
+const userID = 202;
 
-getRecommendationsByMovieID(movieID)
-    .then(recommendations => {
-        console.log('Recommendations by movie ID:', recommendations);
-    })
-    .catch(error => {
-        console.error('Error getting recommendations by movie ID:', error);
-    });
+// getRecommendationsByMovieID(movieID)
+//     .then(recommendations => {
+//         console.log('Recommendations by movie ID:', recommendations);
+//         console.log('Recommendation movie [1]', recommendations.result[1]);
+//     })
 
-getRecommendationsByUserID(userID)
-    .then(recommendations => {
-        console.log('Recommendations by user ID:', recommendations);
-    })
-    .catch(error => {
-        console.error('Error getting recommendations by user ID:', error);
-    });
+//     .catch(error => {
+//         console.error('Error getting recommendations by movie ID:', error);
+//     });
+
+// getRecommendationsByUserID(userID)
+//     .then(recommendations => {
+//         console.log('Recommendations by user ID:', recommendations);
+//         console.log('Recommendation movie [1]', recommendations.result[1]);
+//     })
+//     .catch(error => {
+//         console.error('Error getting recommendations by user ID:', error);
+//     });
+
+module.exports = {
+    getRecommendationsByUserID,
+    getRecommendationsByMovieID
+}

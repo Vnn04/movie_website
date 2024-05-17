@@ -1,0 +1,6 @@
+//dùng để có để viết code javascript ở mọi phiên bản khác nhau (giống như một trình compiler)
+{
+    "presets": [
+        "@babel/preset-env"
+    ]
+}

@@ -13,11 +13,11 @@ warnings.filterwarnings('ignore')
 class RatingBasedRecommender(BaseRecommender):
     """A movie recommender system based on ratings."""
     def load_data(self):
-        engine = create_engine('mysql+pymysql://root:vnn04@localhost/mlops')
+        engine = create_engine('mysql+pymysql://root:123456@localhost:3307/BTLthpt')
         self.ratings = pd.read_sql_query('SELECT * FROM rating', con=engine)
-        self.users = pd.read_sql_query('SELECT id, gender, date_of_birth FROM user', con=engine)
-        self.movies = pd.read_sql_query('SELECT * FROM movie', con=engine)
-        self.movies = self.movies[['movieID','Action','Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','History','Horror','Music','Mystery','Romance','Science Fiction','TV Movie','Thriller','War','Western']]
+        self.users = pd.read_sql_query('SELECT id, gender, date_of_birth FROM Users', con=engine)
+        self.movies = pd.read_sql_query('SELECT * FROM Movies', con=engine)
+        self.movies = self.movies[['id','Action','Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','History','Horror','Music','Mystery','Romance','Science Fiction','TV Movie','Thriller','War','Western']]
 
     def preprocess_data(self):
         now = datetime.now()
@@ -28,14 +28,14 @@ class RatingBasedRecommender(BaseRecommender):
         self.movie_id_map = {id: i for i, id in enumerate(self.unique_movie_ids)}
 
         self.ratings['movieID'] = self.ratings['movieID'].map(self.movie_id_map)
-        self.movies['movieID'] = self.movies['movieID'].map(self.movie_id_map)
+        self.movies['id'] = self.movies['id'].map(self.movie_id_map)
 
         self.R = np.zeros((self.users.shape[0], self.movies.shape[0]))
 
         for row in self.ratings.itertuples():
-            user_id = row[1]
-            movie_id = row[2]
-            rating = row[3]
+            user_id = row[2]
+            movie_id = row[3]
+            rating = row[4]
             self.R[user_id, movie_id] = rating
 
     def train(self, alpha=0.0001, beta=0.02):

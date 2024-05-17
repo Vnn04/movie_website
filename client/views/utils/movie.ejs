@@ -5,19 +5,24 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/imgs/favicon.ico" type="image/x-icon" rel="icon" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../public/css/navbar.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/style.css" />
+
   <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
       rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+
   <title>Movie Film</title>
 </head>
 
 <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto p-3">
+     <!-- navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto p-3">
       <!-- logo-navbar -->
       <a class="navbar-brand text-success" href="#">F-MOVIE</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -27,21 +32,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- navbar items -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/client/views/index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/client/views/utils/movie.html">Movies</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Series</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Popular</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Trends</a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/api/get-home-after-login">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  active" href="/api/movie">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/series">Series</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/popular">Popular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/playlist">My playlists</a>
+            </li>
               <!-- <li class="nav-item">
                   <a class="nav-link" href="/client/views/auth/login.html">Login</a>
               </li>
@@ -49,16 +54,16 @@
                   <a class="nav-link" href="/client/views/auth/register.html">Register</a>
               </li> -->
               <li class="nav-item">
-                  <a class="nav-link" href="#">Logout</a>
-              </li>
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
           </ul>
-          <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <form action="/search" class="d-flex" method="post">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
           <div class="profile-container ms-3 dropdown">
               <a href="#" class="d-flex align-items-center text-decoration-none" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="../../public/css/navbar.css" class="rounded-circle profile-picture" alt="img empty">
+                  <img src="../../public/imgs/love.jpg" class="rounded-circle profile-picture" alt="img empty">
                   <div class="profile-text-container ms-2">
                       <span class="profile-text">Profile</span>
                   </div>
@@ -66,10 +71,9 @@
           </div>
       </div>
   </nav>
-
 <!-- Filter search -->
 <div class="container mt-4">
-  <h2>TRENDS</h2>
+  <h2>MOVIES</h2>
   
   <!-- Filter Section -->
   <div class="row mb-4">
@@ -109,19 +113,23 @@
 
 <div class="row">
     <!-- Movie Card -->
+    <% if(movies) { %>
+      <% for(var i = 0; i < movies.length; i++) { %>
     <div class="col-md-4 mb-4">
       <div class="card">
-        <img src="" class="card-img-top" alt="Movie Title">
+        <img src="https://image.tmdb.org/t/p/w1280<%=movies[i].poster_path%>" class="card-img-top" alt="Movie Title">
         <div class="card-body">
-          <h5 class="card-title">Movie Title</h5>
-          <p class="card-text">Movie description goes here.</p>
-          <a href="#" class="btn btn-primary">Watch Now</a>
+          <h5 class="card-title"><%=JSON.stringify(movies[i].title).replace(/"/g, "")%></h5>
+          <p class="card-text"><%=JSON.stringify(movies[i].overview).replace(/"/g, "")%></p>
+          <a href="/api/movie-detail/<%=movies[i].id%>" class="btn btn-primary">Watch Now</a>
         </div>
       </div>
     </div>
+      <% } %>
+    <% } %>
     
     <!-- Repeat for other movies -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
       <div class="card">
         <img src="" class="card-img-top" alt="Movie Title">
         <div class="card-body">
@@ -141,9 +149,26 @@
           <a href="#" class="btn btn-primary">Watch Now</a>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
+
+<!-- Pagination -->
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
 
 </body>
 </html>

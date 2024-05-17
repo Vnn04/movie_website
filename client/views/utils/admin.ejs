@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Custom CSS -->
+    <link href="/imgs/favicon.ico" type="image/x-icon" rel="icon" />  </head>
     <style>
         .form-group label {
             font-weight: bold;
@@ -16,7 +17,7 @@
 <body>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Admin Dashboard</h2>
+    <h2 class="mb-4">MANAGE</h2>
     
     <!-- Movie Section -->
     <div class="mb-4">
@@ -46,10 +47,14 @@
     <!-- Thêm phim Form -->
     <div class="mb-4">
         <h3 class="mb-3">Thêm phim</h3>
-        <form>
+        <form action="/add-movie" method="POST">
             <div class="mb-3">
-                <label for="movieName" class="form-label">Tên phim</label>
-                <input type="text" class="form-control" id="movieName" required>
+                <label for="movieName" class="form-label">id</label>
+                <input type="text" class="form-control" id="movieName" name="id" required>
+            </div>
+            <div class="mb-3">
+                <label for="movieName" class="form-label">Title</label>
+                <input type="text" class="form-control" id="movieName" name="title" required>
             </div>
             <div class="mb-3">
                 <label for="movieCategory" class="form-label">Thể loại</label>
@@ -66,6 +71,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Thêm</button>
         </form>
+        <div><%=JSON.stringify(message.errMessage)%></div>
     </div>
     
     <!-- Xóa user -->

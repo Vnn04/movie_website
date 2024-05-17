@@ -1,0 +1,25 @@
+<div style="width: 500%">
+  <div class="widget-title">Top rating</div>
+  <div>
+    <% for(let i =0; i < 11; i++) { %>
+    <article class="w_item_b" id="post-1075699">
+      <a href="/api/movie-detail/<%=moviesTopRating[i].id%>">
+        <div class="image">
+          <img
+            src="https://image.tmdb.org/t/p/w1280<%=moviesTopRating[i].poster_path%>"
+            alt="<%=JSON.stringify(moviesTopRating[i].title)%>"
+            class="mCS_img_loaded"
+          />
+        </div>
+        <div class="data" style="color: white;">
+          <h5 ><%=JSON.stringify(moviesTopRating[i].title).replace(/"/g, "")%></h5>
+          <div class="wextra">
+            <!-- <b> 8 </b> -->
+            <span class="year"><%=JSON.stringify(moviesTopRating[i].release_date).replace(/"/g, "")%></span>
+          </div>
+        </div>
+      </a>
+    </article>
+    <% } %>
+  </div>
+</div>

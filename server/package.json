@@ -1,0 +1,43 @@
+{
+  "name": "fullstack",
+  "version": "1.0.0",
+  "description": "fullstack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec ./node_modules/.bin/babel-node src/server.js"
+  },
+  "keywords": [
+    "fullstack"
+  ],
+  "author": "dungtk2004",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "form-data": "^4.0.0",
+    "mathjax-node": "^2.1.1",
+    "mysql2": "^3.9.3",
+    "nodemailer": "^6.9.13",
+    "openai": "^4.29.1",
+    "pdf-parse": "^1.1.1",
+    "sequelize": "^6.37.2",
+    "serpapi": "^2.1.0",
+    "serve-favicon": "^2.5.0",
+    "youtube-captions-scraper": "^2.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.6.2"
+  }
+}
