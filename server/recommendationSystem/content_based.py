@@ -10,7 +10,7 @@ class RecommendationContentBased:
         self.indices = None
 
     def load_data(self):
-        engine = create_engine('mysql+pymysql://root:123456@localhost:3307/BTLthpt')
+        engine = create_engine('mysql+pymysql://root:vnn04@localhost:3307/mlops')
         self.movies = pd.read_sql_query('SELECT * FROM Movies', con=engine)
         self.movie_features = self.movies[["id",'Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','History','Horror','Music','Mystery','Romance','Science Fiction','TV Movie','Thriller','War','Western']]
         self.cosine_sim = cosine_similarity(self.movie_features.iloc[:, 1:], self.movie_features.iloc[:, 1:])

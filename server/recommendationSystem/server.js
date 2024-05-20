@@ -3,6 +3,7 @@ const axios = require('axios');
 // Định nghĩa các URL của các endpoint API của Flask
 const recommendByMovieIDURL = 'http://localhost:5000/recommend_by_movieID';
 const recommendByUserIDURL = 'http://localhost:5000/recommend_by_userID';
+const add_new_userURL = 'http://localhost:5000/add_new_user';
 
 // Hàm gửi yêu cầu API đến endpoint recommend_by_movieID của Flask
 async function getRecommendationsByMovieID(movieID) {
@@ -30,31 +31,46 @@ async function getRecommendationsByUserID(userID) {
     }
 }
 
+async function add_new_user(id, gender, date_of_birth) {
+    try {
+        const response = await axios.post(add_new_userURL, {
+            'id': id,
+            'gender': gender,
+            'date_of_birth':date_of_birth
+        });
+        console.log(response.data)
+    } catch (error) {
+        console.error("Error add new user: ", error);
+    }
+}
+
 // Sử dụng các hàm trên
 
-const movieID = 254;
-const userID = 202;
+const movieID = 11;
+const userID = 0;
 
-// getRecommendationsByMovieID(movieID)
-//     .then(recommendations => {
-//         console.log('Recommendations by movie ID:', recommendations);
-//         console.log('Recommendation movie [1]', recommendations.result[1]);
-//     })
+getRecommendationsByMovieID(movieID)
+    .then(recommendations => {
+        console.log('Recommendations by movie ID:', recommendations);
+        console.log('Recommendation movie [1]', recommendations.result[1]);
+    })
 
-//     .catch(error => {
-//         console.error('Error getting recommendations by movie ID:', error);
-//     });
+    .catch(error => {
+        console.error('Error getting recommendations by movie ID:', error);
+    });
 
-// getRecommendationsByUserID(userID)
-//     .then(recommendations => {
-//         console.log('Recommendations by user ID:', recommendations);
-//         console.log('Recommendation movie [1]', recommendations.result[1]);
-//     })
-//     .catch(error => {
-//         console.error('Error getting recommendations by user ID:', error);
-//     });
+getRecommendationsByUserID(userID)
+    .then(recommendations => {
+        console.log('Recommendations by user ID:', recommendations);
+        console.log('Recommendation movie [1]', recommendations.result[1]);
+    })
+    .catch(error => {
+        console.error('Error getting recommendations by user ID:', error);
+    });
 
-module.exports = {
-    getRecommendationsByUserID,
-    getRecommendationsByMovieID
-}
+add_new_user(200, 1, '1991-10-12')
+
+// module.exports = {
+//     getRecommendationsByUserID,
+//     getRecommendationsByMovieID
+// }
