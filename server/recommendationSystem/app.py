@@ -7,18 +7,26 @@ import joblib
 app = Flask(__name__)
 
 # Load or train the collaborative filtering model
+# def load_or_train_collaborative_model():
+#     try:
+#         recommender = joblib.load('collaborative_model.pkl')
+#         print("Collaborative model loaded from file.")
+#     except (FileNotFoundError, EOFError):
+#         recommender = MovieRecommender(K=3, max_gradients=100)
+#         recommender.load_data()
+#         recommender.preprocess_data()
+#         recommender.train(alpha=0.0001, beta=0.02)
+#         joblib.dump(recommender, 'collaborative_model.pkl')
+#         print("Collaborative model trained and saved to file.")
+#     return recommender
+
 def load_or_train_collaborative_model():
-    try:
-        recommender = joblib.load('collaborative_model.pkl')
-        print("Collaborative model loaded from file.")
-    except (FileNotFoundError, EOFError):
-        recommender = MovieRecommender(K=3, max_gradients=100)
-        recommender.load_data()
-        recommender.preprocess_data()
-        recommender.train(alpha=0.0001, beta=0.02)
-        joblib.dump(recommender, 'collaborative_model.pkl')
-        print("Collaborative model trained and saved to file.")
+    recommender = MovieRecommender(K=3, max_gradients=100)
+    recommender.load_data()
+    recommender.preprocess_data()
+    recommender.train(alpha=0.0001, beta=0.02)
     return recommender
+
 
 recommender = load_or_train_collaborative_model()
 

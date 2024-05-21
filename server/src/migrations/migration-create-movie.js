@@ -21,9 +21,6 @@ module.exports = {
       release_date: {
         type: Sequelize.DATEONLY,
       },
-      genres: {
-        type: Sequelize.STRING,
-      },
       rating: {
         type: Sequelize.FLOAT,
       },

@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     overview: DataTypes.TEXT,
     poster_path: DataTypes.STRING,
     release_date: DataTypes.DATEONLY,
-    genres: DataTypes.STRING,
     rating: DataTypes.FLOAT,
     link: DataTypes.STRING,
     Action: DataTypes.BOOLEAN,
