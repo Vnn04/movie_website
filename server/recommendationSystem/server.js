@@ -49,28 +49,29 @@ async function add_new_user(id, gender, date_of_birth) {
 const movieID = 11;
 const userID = 0;
 
-getRecommendationsByMovieID(movieID)
-    .then(recommendations => {
-        console.log('Recommendations by movie ID:', recommendations);
-        console.log('Recommendation movie [1]', recommendations.result[1]);
-    })
+// getRecommendationsByMovieID(movieID)
+//     .then(recommendations => {
+//         console.log('Recommendations by movie ID:', recommendations);
+//         console.log('Recommendation movie [1]', recommendations.result[1]);
+//     })
 
-    .catch(error => {
-        console.error('Error getting recommendations by movie ID:', error);
-    });
+//     .catch(error => {
+//         console.error('Error getting recommendations by movie ID:', error);
+//     });
 
-getRecommendationsByUserID(userID)
-    .then(recommendations => {
-        console.log('Recommendations by user ID:', recommendations);
-        console.log('Recommendation movie [1]', recommendations.result[1]);
-    })
-    .catch(error => {
-        console.error('Error getting recommendations by user ID:', error);
-    });
+// getRecommendationsByUserID(userID)
+//     .then(recommendations => {
+//         console.log('Recommendations by user ID:', recommendations);
+//         console.log('Recommendation movie [1]', recommendations.result[1]);
+//     })
+//     .catch(error => {
+//         console.error('Error getting recommendations by user ID:', error);
+//     });
 
-add_new_user(200, 1, '1991-10-12')
+// add_new_user(200, 1, '1991-10-12')
 
-// module.exports = {
-//     getRecommendationsByUserID,
-//     getRecommendationsByMovieID
-// }
+module.exports = {
+    getRecommendationsByUserID,
+    getRecommendationsByMovieID,
+    add_new_user
+}

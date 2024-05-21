@@ -114,7 +114,7 @@ let createNewUser = async (newUser) => {
         });
       } else {
         let hashPasswordFromBcrypt = await hashUserPassword(newUser.password);
-        await db.User.create({
+        let userInfo = await db.User.create({
           email: newUser.email,
           username: newUser.username,
           password: hashPasswordFromBcrypt,
@@ -128,6 +128,7 @@ let createNewUser = async (newUser) => {
         console.log("loi")
         resolve({
           errCode: 0,
+          userInfo, 
           errMessage: "Create new user success",
         });
       }
