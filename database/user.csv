@@ -1,4 +1,4 @@
-id,username,fullname,date_of_birth,password,gender,phone,email,address,bought_vip
+userID,username,fullname,date_of_birth,password,gender,phone,email,address,bought_vip
 0,jasonrusso,Rhonda Potter,1964-12-22,1szFNCzZTz,1,493-247-4226x0397,cwalker@example.org,"802 Johnson Meadow, South Brettfort, MT 58921",True
 1,lauren09,Randall Hill,1961-10-12,E69foamqAM,0,+1-700-450-7816x498,deanjennifer@example.com,"0964 Andrew Valley, Port Brittanymouth, PW 57832",True
 2,markmontgomery,Gregory Clark,1948-02-02,icS3XPDAwg,0,889-562-5011x3880,tgreen@example.com,"53557 Kimberly Rapid, East Briana, ND 98794",False

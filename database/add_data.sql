@@ -2,7 +2,8 @@ CREATE DATABASE IF NOT EXISTS mlops;
 USE mlops;
 
 CREATE TABLE IF NOT EXISTS Users (
-    id INT,
+    id INT AUTO_INCREMENT,
+    userID INT,
     username VARCHAR(255),
     fullname VARCHAR(255),
     date_of_birth DATE,
@@ -11,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Users (
     phone VARCHAR(25),
     email VARCHAR(255),
     address VARCHAR(255),
-    bought_vip BOOLEAN,
+    bought_vip BOOLEAN DEFAULT 0,
     PRIMARY KEY(id)
 );
 
@@ -21,7 +22,7 @@ FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
-(id, username, fullname, date_of_birth, password, gender, phone, email, address, @bought_vip)
+(userID, username, fullname, date_of_birth, password, gender, phone, email, address, @bought_vip)
 SET bought_vip = CASE
     WHEN @bought_vip='True' THEN 1
     ELSE 0

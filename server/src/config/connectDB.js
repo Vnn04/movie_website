@@ -5,6 +5,9 @@ const sequelize = new Sequelize("mlops", "root", "vnn04", {
   host: "localhost",
   port: "3307", //vi dung docker nen can map port 3307:3306, nếu chỗ này không khai báo port thì default là 3306
   dialect: "mysql",
+  define: {
+    freezeTableName: true
+  },
   logging: true
 });
 

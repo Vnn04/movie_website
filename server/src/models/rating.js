@@ -19,8 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     rating: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Rating',
-    timestamps:false
+    modelName: 'rating',
+    timestamps:false,
+    freezeTableName: true
   });
   return Rating
 };

@@ -11,6 +11,7 @@ let {
   handleAddList,
   handleGetWatchTrailer,
   handleGetHomeAfterLogin,
+  handleVoteRating,
   handleGetAdmin,
   handleAddFilm,
   handleGetDashboard
@@ -30,6 +31,8 @@ let initMovieAPIRoutes = (app) => {
   router.post("/search", handleSearchFilmByName);
   router.get("/api/watch-trailer/:id", handleGetWatchTrailer)
   router.get("/api/get-home-after-login", handleGetHomeAfterLogin);
+
+  router.post('/submit-rating', handleVoteRating)
 
   // admin function
   router.get("/get/admin", handleGetAdmin)

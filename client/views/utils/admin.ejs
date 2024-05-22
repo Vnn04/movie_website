@@ -3,93 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link href="/imgs/favicon.ico" type="image/x-icon" rel="icon" />  </head>
+    <title>Add Movie Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .form-group label {
-            font-weight: bold;
+        .container {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-
-<div class="container mt-5">
-    <h2 class="mb-4">MANAGE</h2>
-    
-    <!-- Movie Section -->
-    <div class="mb-4">
-        <h3 class="mb-3">Danh sách phim</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Tên phim</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Tên phim 1</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm me-2">Sửa</button>
-                        <button class="btn btn-danger btn-sm">Xóa</button>
-                    </td>
-                </tr>
-                <!-- Add more rows for other movies -->
-            </tbody>
-        </table>
-    </div>
-    
-    <!-- Thêm phim Form -->
-    <div class="mb-4">
-        <h3 class="mb-3">Thêm phim</h3>
+    <div class="container">
+        <h2>Add New Movie</h2>
         <form action="/add-movie" method="POST">
             <div class="mb-3">
-                <label for="movieName" class="form-label">id</label>
-                <input type="text" class="form-control" id="movieName" name="id" required>
+                <label for="id" class="form-label">Film id</label>
+                <input type="number" class="form-control" id="id" name="id" required>
             </div>
             <div class="mb-3">
-                <label for="movieName" class="form-label">Title</label>
-                <input type="text" class="form-control" id="movieName" name="title" required>
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="mb-3">
-                <label for="movieCategory" class="form-label">Thể loại</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Chọn thể loại</option>
-                    <option value="1">Hành động</option>
-                    <option value="2">Tình cảm</option>
-                    <option value="3">Kinh dị</option>
-                </select>
+                <label for="overview" class="form-label">Overview</label>
+                <textarea class="form-control" id="overview" name="overview" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="releaseYear" class="form-label">Năm phát hành</label>
-                <input type="text" class="form-control" id="releaseYear" required>
+                <label for="poster_path" class="form-label">Poster Path</label>
+                <input type="text" class="form-control" id="poster_path" name="poster_path" required>
             </div>
-            <button type="submit" class="btn btn-primary">Thêm</button>
-        </form>
-        <div><%=JSON.stringify(message.errMessage)%></div>
-    </div>
-    
-    <!-- Xóa user -->
-    <div>
-        <h3 class="mb-3">Danh sách người dùng</h3>
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">User 1
-                <div>
-                    <button class="btn btn-danger btn-sm me-2">Xóa</button>
-                    <button class="btn btn-primary btn-sm">Cấm</button>
+            <div class="mb-3">
+                <label for="release_date" class="form-label">Release Date</label>
+                <input type="date" class="form-control" id="release_date" name="release_date" required>
+            </div>
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="number" step="0.1" class="form-control" id="rating" name="rating" required>
+            </div>
+            <div class="mb-3">
+                <label for="link" class="form-label">Link</label>
+                <input type="text" class="form-control" id="link" name="link" required>
+            </div>
+            <div class="mb-3">
+                <label for="cast" class="form-label">Cast</label>
+                <textarea class="form-control" id="cast" name="cast" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Genres</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Action" name="Action">
+                    <label class="form-check-label" for="Action">Action</label>
                 </div>
-            </li>
-            <!-- Add more users -->
-        </ul>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Adventure" name="Adventure">
+                    <label class="form-check-label" for="Adventure">Adventure</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Animation" name="Animation">
+                    <label class="form-check-label" for="Animation">Animation</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Comedy" name="Comedy">
+                    <label class="form-check-label" for="Comedy">Comedy</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Crime" name="Crime">
+                    <label class="form-check-label" for="Crime">Crime</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Documentary" name="Documentary">
+                    <label class="form-check-label" for="Documentary">Documentary</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Drama" name="Drama">
+                    <label class="form-check-label" for="Drama">Drama</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Family" name="Family">
+                    <label class="form-check-label" for="Family">Family</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Fantasy" name="Fantasy">
+                    <label class="form-check-label" for="Fantasy">Fantasy</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="History" name="History">
+                    <label class="form-check-label" for="History">History</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Horror" name="Horror">
+                    <label class="form-check-label" for="Horror">Horror</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Music" name="Music">
+                    <label class="form-check-label" for="Music">Music</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Mystery" name="Mystery">
+                    <label class="form-check-label" for="Mystery">Mystery</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Romance" name="Romance">
+                    <label class="form-check-label" for="Romance">Romance</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="ScienceFiction" name="Science Fiction">
+                    <label class="form-check-label" for="ScienceFiction">Science Fiction</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="TVMovie" name="TV Movie">
+                    <label class="form-check-label" for="TVMovie">TV Movie</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Thriller" name="Thriller">
+                    <label class="form-check-label" for="Thriller">Thriller</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="War" name="War">
+                    <label class="form-check-label" for="War">War</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="Western" name="Western">
+                    <label class="form-check-label" for="Western">Western</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <%=JSON.stringify(message.errMessage)%>
+        </form>
     </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

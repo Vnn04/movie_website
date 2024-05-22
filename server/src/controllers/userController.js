@@ -37,9 +37,7 @@ let handleGetAllUsers = async (req, res) => {
 let handleCreateNewUser = async (req, res) => {
   let user = req.body;
   let message = await createNewUser(user);
-  if(message.errCode == 0) {
-    await add_new_user(message.userInfo.id, message.userInfo.gender, message.userInfo.date_of_birth)
-  }  
+  await add_new_user(message.user.id, message.user.gender, message.user.date_of_birth)
   return res.render("auth/register.ejs", {message: message});
 };
 

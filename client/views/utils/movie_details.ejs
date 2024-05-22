@@ -31,6 +31,15 @@
         border: 1px solid #000;
         padding: 10px;
       }
+      .rating .star {
+        font-size: 30px;
+        color: #ccc;
+        cursor: pointer;
+      }
+      .rating .star:hover,
+      .rating .star.selected {
+        color: blue;
+      }
     </style>
   </head>
 
@@ -70,34 +79,7 @@
             <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-        <div class="profile-container ms-3 dropdown">
-          <a
-            href="#"
-            class="d-flex align-items-center text-decoration-none"
-            id="profileDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="../public/imgs/love.jpg"
-              class="rounded-circle profile-picture"
-              alt="img empty"
-            />
-            <div class="profile-text-container ms-2">
-              <span class="profile-text">Profile</span>
-            </div>
-          </a>
-        </div>
+
       </div>
     </nav>
 
@@ -127,7 +109,7 @@
                     <i class="fas fa-plus-circle"></i> Add List
                   </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link" href="#">
                     <i class="far fa-star"></i>
                     <i class="far fa-star"></i>
@@ -135,7 +117,27 @@
                     <i class="far fa-star"></i>
                     <i class="far fa-star"></i>
                   </a>
-                </li>
+                </li> -->
+                <form id="ratingForm" action="/submit-rating" method="POST">
+                  <li class="nav-item">
+                    <div class="rating">
+
+                      <span class="star" onclick="showRating(1)" title="1 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(2)" title="2 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(3)" title="3 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(4)" title="4 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(5)" title="5 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(6)" title="6 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(7)" title="7 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(8)" title="8 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(9)" title="9 sao">&#9733;</span>
+                      <span class="star" onclick="showRating(10)" title="10 sao">&#9733;</span>
+                    </div>
+                  </li>
+                  <input type="hidden" id="ratingInput" name="rating" value="">
+                  <input type="hidden" id="movieIdInput" name="movieId" value="<%=movie.id%>">
+                  <button type="submit">Submit Rating</button>
+                </form>
                 <li class="nav-item">
                   <a class="nav-link" href="/api/watch-trailer/<%=movie.id%>">
                     <i class="fas fa-play-circle"></i> Play trailer
@@ -178,8 +180,8 @@
     <div><h2>Recommended movies</h2></div>
     <div class="movie-list-wrapper">
       <div class="row">
-    <% for (let i = 0; i < 6; i++) { %>
-
+    <% for (let i = 0; i < 7; i++) { %>
+    <% if(movieRCM[i].id != movie.id) { %> 
     <div class="movie-list-item col-md-2 mb-4">
       <div class="card bgw">
           <a href="/api/movie-detail/<%=movieRCM[i].id%>" class=""><img class="card-img-top movie-list-item-img img-r " src="https://image.tmdb.org/t/p/w1280<%=movieRCM[i].poster_path%>" alt="Movie Poster"></a>
@@ -188,6 +190,7 @@
           </div>
       </div>
   </div>
+    <% } %>
   <% } %>
   </div>
   </div>
@@ -234,5 +237,20 @@
     <!-- Bootstrap 5 JS và Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+    function showRating(rating) {
+      // Xóa lựa chọn hiện tại
+      const stars = document.querySelectorAll('.star');
+      stars.forEach(star => star.classList.remove('selected'));
+
+      // Chọn các ngôi sao dựa trên đánh giá
+      for (let i = 0; i < rating; i++) {
+        stars[i].classList.add('selected');
+      }
+
+      // Cập nhật giá trị vào input ẩn
+      document.getElementById('ratingInput').value = rating;
+    }
+    </script>
   </body>
 </html>
