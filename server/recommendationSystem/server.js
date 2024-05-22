@@ -116,40 +116,41 @@ async function add_new_movie(id, action, adventure, animation, comedy, crime, do
         console.error("Error update watch trailer: ", error);
     }
 }
-// Sử dụng các hàm trên
+// Sử dụng các hàm trên 
 
-const movieID = 11;
-const userID = 200;
-add_new_user(200, 1, '1991-10-12');
+// const movieID = 11; 
+// const userID = 200;
+// add_new_user(200, 1, '1991-10-12');
 
-getRecommendationsByMovieID(movieID)
-    .then(recommendations => {
-        console.log('Recommendations by movie ID:', recommendations);
-        console.log('Recommendation movie [1]', recommendations.result[1]);
-    })
+// getRecommendationsByMovieID(movieID)
+//     .then(recommendations => {
+//         console.log('Recommendations by movie ID:', recommendations);
+//         console.log('Recommendation movie [1]', recommendations.result[1]);
+//     })
 
-    .catch(error => {
-        console.error('Error getting recommendations by movie ID:', error);
-    });
+//     .catch(error => {
+//         console.error('Error getting recommendations by movie ID:', error);
+//     });
 
-getRecommendationsByUserID(userID)
-    .then(recommendations => {
-        console.log('Recommendations by user ID:', recommendations);
-        console.log('Recommendation movie [1]', recommendations.result[1]);
-    })
-    .catch(error => {
-        console.error('Error getting recommendations by user ID:', error);
-    });
+// getRecommendationsByUserID(userID)
+//     .then(recommendations => {
+//         console.log('Recommendations by user ID:', recommendations);
+//         console.log('Recommendation movie [1]', recommendations.result[1]);
+//     })
+//     .catch(error => {
+//         console.error('Error getting recommendations by user ID:', error);
+//     });
 
 
-update_rating(0, 11, 2);
-update_view(0, 11, 100);
-update_watch_trailer(0, 11, 90);
+// update_rating(0, 11, 2);
+// update_view(0, 11, 100);
+// update_watch_trailer(0, 11, 100);
 
-add_new_movie(123, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1);
+// add_new_movie(124, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1);
 
-// module.exports = {
-//     getRecommendationsByUserID,
-//     getRecommendationsByMovieID,
-//     add_new_user
-// }
+module.exports = {
+    getRecommendationsByUserID,
+    getRecommendationsByMovieID,
+    add_new_user,
+    update_rating
+}

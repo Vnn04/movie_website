@@ -205,10 +205,10 @@ let newVote = await db.sequelize.query(insertQuery, {
   } catch (error) {
     console.error('Error updating movie ratings:', error);
   }
-  await update_rating(newVote.userID, newVote.movieID, newVote.rating);
+  await update_rating(newVote.userId, newVote.movieID, newVote.rating);
   console.log('newvote;',newVote) 
   return res.redirect(req.headers.referer || '/')
-}
+} 
 module.exports = {
   handleGetAllMovie,
   handleGetSeries,

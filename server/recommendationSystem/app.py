@@ -2,20 +2,32 @@ import pandas as pd
 from content_based import RecommendationContentBased
 from collaborative import MovieRecommender
 from flask import Flask, request, jsonify
-import joblib
 
 app = Flask(__name__)
 
-recommender = MovieRecommender(K=3, max_gradients=100)
-recommender.load_data()
-recommender.preprocess_data()
-recommender.train(alpha=0.0001, beta=0.02)
+# Initialize global variable to check if the model has been trained
+model_trained = False
+recommender = None
+
+def initialize_recommender():
+    global model_trained
+    global recommender
+    
+    if not model_trained:
+        recommender = MovieRecommender(K=3, max_gradients=100)
+        recommender.load_data()
+        recommender.preprocess_data()
+        recommender.train(alpha=0.0001, beta=0.02)
+        model_trained = True
+
+# Initialize and train the model once
+initialize_recommender()
 
 content_based = RecommendationContentBased()
 content_based.load_data()
 
 @app.route('/recommend_by_movieID', methods=['POST'])
-def recommend_by_movieID():
+def recommend_by_movieID(): 
     data = request.get_json()
     movieID = data.get('movieID')
     result = content_based.get_recommendations(movieID)
@@ -44,7 +56,6 @@ def add_new_user():
 
 @app.route('/add_new_movie', methods=['POST'])
 def add_new_movie():
-    # ['Science Fiction','TV Movie','Thriller','War','Western']
     data = request.get_json()
     id = data.get('id')
     action = data.get('Action')
@@ -67,12 +78,11 @@ def add_new_movie():
     war = data.get('War')
     western = data.get('Western')
     new_movie = [{'id': id, 'Action': action, 'Adventure': adventure, 'Animation': animation, 'Comedy': comedy, 'Crime': crime, 'Documentary': documentary,
-                  'Drama': drama, 'Family': family, 'Fantasy': fantasy, 'History': history, 'Horror':horror, "Music": music, 
-                  'Mystery': mystery, 'Romance': romance, 'Science Fiction': science, 'TV Movie': tv, 'Thriller':thriller, 'War': war, "Western": western}]
+                  'Drama': drama, 'Family': family, 'Fantasy': fantasy, 'History': history, 'Horror': horror, "Music": music, 
+                  'Mystery': mystery, 'Romance': romance, 'Science Fiction': science, 'TV Movie': tv, 'Thriller': thriller, 'War': war, "Western": western}]
     new_movie = pd.DataFrame(new_movie)
     recommender.add_new_movie(new_movie)
     return jsonify({"message": "Add new movie successfully"}), 200
-
 
 @app.route('/update_rating', methods=['POST'])
 def update_rating():
@@ -100,7 +110,6 @@ def update_watch_trailer():
     watch = data.get('watch')
     recommender.update_watch_trailer(userID, movieID, watch)
     return jsonify({"message": "Update watch trailer successfully"}), 200
-
 
 if __name__ == "__main__":
     app.run(debug=True)
