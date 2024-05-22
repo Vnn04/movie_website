@@ -13,7 +13,7 @@ let {
 import db from "../models/index"
 require("dotenv").config();
 const { getJson } = require("serpapi");
-let {add_new_movie, update, update_rating} = require("../../recommendationSystem/server")
+let {add_new_movie, update_rating} = require("../../recommendationSystem/server")
 
 
 
@@ -74,15 +74,15 @@ let handleGetMovieDetail = async (req, res) => {
   } catch (e) {
     console.log(e);
   }
-  // const results = await getJson({
-  //   q: movieTitle,
-  //   engine: "google_images",
-  //   ijn: "0",
-  //   api_key: process.env.SECRET_API_GG_IMG_KEY
-  // });
-  // const image_results = results["images_results"];
-  // return res.render("utils/movie_details.ejs", { movie: movie, images: image_results, movieRCM: MoviesRecommendByMvId});
-  return res.render("utils/movie_details.ejs", { movie: movie, movieRCM: MoviesRecommendByMvId});
+  const results = await getJson({
+    q: movieTitle,
+    engine: "google_images",
+    ijn: "0",
+    api_key: process.env.SECRET_API_GG_IMG_KEY
+  });
+  const image_results = results["images_results"];
+  return res.render("utils/movie_details.ejs", { movie: movie, images: image_results, movieRCM: MoviesRecommendByMvId});
+  // return res.render("utils/movie_details.ejs", { movie: movie, movieRCM: MoviesRecommendByMvId});
 };
 
 let handleSearchFilmByName = async (req, res) => {
@@ -126,7 +126,10 @@ let handleGetWatchTrailer = async (req, res) => {
 }
 
 let handleGetHomeAfterLogin = async(req, res) => {
-  const userID = req.session.user.id;
+  let userID = 1;
+  if(req.session.user) {
+    userID = req.session.user.id;
+  }
   let recommendations;
   let allMovies;
   let moviesTopRating;
@@ -179,35 +182,107 @@ let handleGetDashboard = async(req, res) => {
   )
 }
 
-let handleVoteRating = async(req, res) => {
+// let handleVoteRating = async(req, res) => {
+//   let body = req.body;
+//   let userId = req.session.user.id;
+//   console.log(userId, body.movieId)
+
+//   try { 
+//     const insertQuery = `
+//     INSERT INTO rating (userID, movieID, rating)
+//     VALUES (?, ?, ?)
+//     `;
+//     let newVote = await db.sequelize.query(insertQuery, {
+//       replacements: [userId, body.movieId, body.rating],
+//       type: db.sequelize.QueryTypes.INSERT,
+//     });
+//     const query = `
+//       UPDATE Movies m
+//       SET rating = (
+//         SELECT AVG(r.rating)
+//         FROM rating r
+//         WHERE r.movieID = m.id
+//       )
+//     `; 
+//     await db.sequelize.query(query, { type: db.sequelize.QueryTypes.UPDATE });
+//     console.log('Movie ratings updated successfully');
+//     await update_rating(userId, newVote.movieID, newVote.rating);
+//     console.log('newvote;',newVote) 
+//   } catch (error) {
+//     console.error('Error updating movie ratings:', error);
+//   }
+
+//   return res.redirect(req.headers.referer || '/')
+// }
+let handleVoteRating = async (req, res) => {
   let body = req.body;
-  let userId = req.session.user.id;
+  let userId = 1;
+  if(req.session.user) {
+    userId = req.session.user.id;
+  }
   console.log(userId, body.movieId)
-  const insertQuery = `
-  INSERT INTO rating (userID, movieID, rating)
-  VALUES (?, ?, ?)
-`;
-let newVote = await db.sequelize.query(insertQuery, {
-  replacements: [userId, body.movieId, body.rating],
-  type: db.sequelize.QueryTypes.INSERT,
-});
+
   try {
-    const query = `
+    // Kiểm tra xem người dùng đã đánh giá phim này trước đó chưa
+    const checkQuery = `
+      SELECT userID, movieID
+      FROM rating
+      WHERE userID = ? AND movieID = ?
+    `;
+    let existingVote = await db.sequelize.query(checkQuery, {
+      replacements: [userId, body.movieId],
+      type: db.sequelize.QueryTypes.SELECT,
+    });
+
+    if (existingVote.length > 0) {
+      // Nếu người dùng đã đánh giá, cập nhật đánh giá của họ
+      const updateQuery = `
+        UPDATE rating
+        SET rating = ?
+        WHERE userID = ? and movieID = ?
+      `;
+      await db.sequelize.query(updateQuery, {
+        replacements: [body.rating, existingVote[0].userID, existingVote[0].movieID],
+        type: db.sequelize.QueryTypes.UPDATE,
+      });
+      console.log("dddddddddddddddddđ")
+    } else {
+      // Nếu người dùng chưa đánh giá, thêm đánh giá mới
+      const insertQuery = `
+        INSERT INTO rating (userID, movieID, rating)
+        VALUES (?, ?, ?)
+      `;
+      await db.sequelize.query(insertQuery, {
+        replacements: [userId, body.movieId, body.rating],
+        type: db.sequelize.QueryTypes.INSERT,
+      });
+    }
+
+    // Cập nhật điểm đánh giá trung bình của phim
+    const updateAverageRatingQuery = `
       UPDATE Movies m
       SET rating = (
         SELECT AVG(r.rating)
         FROM rating r
         WHERE r.movieID = m.id
       )
-    `; 
-    await db.sequelize.query(query, { type: db.sequelize.QueryTypes.UPDATE });
+      WHERE m.id = ?
+    `;
+    await db.sequelize.query(updateAverageRatingQuery, {
+      replacements: [body.movieId],
+      type: db.sequelize.QueryTypes.UPDATE,
+    });
     console.log('Movie ratings updated successfully');
+
+    // Gọi hàm update_rating để cập nhật rating trên hệ thống
+    await update_rating(userId, body.movieId, body.rating);
+    console.log('New vote:', body.rating);
+
   } catch (error) {
     console.error('Error updating movie ratings:', error);
   }
-  await update_rating(newVote.userID, newVote.movieID, newVote.rating);
-  console.log('newvote;',newVote) 
-  return res.redirect(req.headers.referer || '/')
+
+  return res.redirect(req.headers.referer || '/');
 }
 module.exports = {
   handleGetAllMovie,
