@@ -144,9 +144,15 @@
                   <button type="submit">Submit Rating</button>
                 </form>
                 <li class="nav-item">
+                  <% if(user.bought_vip == 1) { %>
                   <a class="nav-link" href="/api/watch-trailer/<%=movie.id%>">
                     <i class="fas fa-play-circle"></i> Play trailer
                   </a>
+                  <% } else { %>
+                    <a class="nav-link">
+                      <i class="fas fa-lock"></i> Need buy vip to watch
+                  </a>
+                  <% } %>
                 </li>
               </ul>
               <h3>Overview</h3>
@@ -171,7 +177,7 @@
         <% for(var i=0; i < 8; i++) { %>
         <div class="col-md-3">
           <div class="card">
-            <img src="<=images[i].original%>" class="img" alt="<%=JSON.stringify(movie.title)%>" />
+            <img src="<%=images[i].original%>" class="img" alt="<%=JSON.stringify(movie.title)%>" />
             <!-- <div class="card-body">
               <p class="card-text">
                 Some quick example text to build on the card title and make up

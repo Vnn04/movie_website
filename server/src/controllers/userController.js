@@ -1,5 +1,5 @@
 const UserService = require("../services/userService");
-
+let db = require("../models/index")
 class UserController {
   constructor() {
     this.userService = UserService;
@@ -43,6 +43,44 @@ class UserController {
   handleGetLogin(req, res) {
     let userData = { errCode: 0 };
     res.render("auth/login.ejs", { userData: userData });
+  }
+
+  async handleBuyVip(req, res) {
+    if(!req.session || !req.session.user || !req.session.user.id) {
+      return res.redirect('/login');
+    }
+    const userId = req.session.user.id;
+    try {
+      let user1 = await db.User.findOne({
+        where: { id: userId },
+      });
+      if (user1) {
+        user1.bought_vip = 1;
+        await user1.save();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    res.redirect("/api/profile")
+  }
+
+  async handleDeleteVip(req, res) {
+    if(!req.session || !req.session.user || !req.session.user.id) {
+      return res.redirect('/login');
+    }
+    const userId = req.session.user.id;
+    try {
+        let user1 = await db.User.findOne({
+        where: { id: userId },
+      });
+      if (user1) {
+        user1.bought_vip = 0;
+        await user1.save();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    res.redirect("/api/profile")
   }
 
 }

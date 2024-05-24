@@ -7,6 +7,8 @@ const initUserAPIRoutes = (app) => {
     router.get('/api/get-all-users', UserController.handleGetAllUsers);
     router.get('/api/getLogin', UserController.handleGetLogin);
     router.post('/api/edit-user', UserController.handleEditUser);
+    router.post('/buy-vip', UserController.handleBuyVip)
+    router.post('/delete-vip', UserController.handleDeleteVip)
 
 
     return app.use('/', router);

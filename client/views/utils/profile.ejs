@@ -22,6 +22,18 @@
         border-radius: 50%;
         object-fit: cover;
       }
+      .vip-logo {
+        width: 100px;
+        height: auto;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+      .profile-container {
+        position: relative;
+      }
     </style>
   </head>
   <body>
@@ -55,32 +67,28 @@
           <li class="nav-item">
             <a class="nav-link" href="/api/playlist">My playlists</a>
           </li>
-          <!-- <li class="nav-item">
-              <a class="nav-link" href="/client/views/auth/login.html">Login</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/client/views/auth/register.html">Register</a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
-       
-        <div class="profile-container ms-3 dropdown">
-
-        </div>
+        <div class="profile-container ms-3 dropdown"></div>
       </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container mt-5 profile-container">
       <div class="row">
         <div class="col-md-4">
           <!-- User Avatar and Name -->
           <img src="/imgs/love.jpg" alt="Avatar" class="profile-avatar" />
           <h2><%=JSON.stringify(user.username).replace(/"/g, "")%></h2>
         </div>
-        <div class="col-md-8">
-          <!-- Display User Information with Edit Button -->
+        <div class="col-md-8 position-relative">
+          <!-- VIP Logo -->
+          <% if(user.bought_vip == 1) { %>
+          <img src="/imgs/vip-icon.png" alt="VIP Logo" class="vip-logo" id="vipLogo" />
+          <% } else { %>
+          <img src="/imgs/updatevip.jpg" alt="Update VIP Logo" class="vip-logo" id="updateLogo" />
+          <% } %>
           <div class="mt-4">
             <div class="mb-3">
               <p>
@@ -121,21 +129,6 @@
                   ><%=user.gender==1 ? "Male" : "Female"%></span
                 >
               </p>
-              <!-- <p>Gender:</p>
-            <div class="row">
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="maleGender" value="male" checked>
-                        <label class="form-check-label" for="maleGender">Male</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="female">
-                        <label class="form-check-label" for="femaleGender">Female</label>
-                    </div>
-                </div>
-            </div> -->
             </div>
 
             <div class="mb-3">
@@ -242,6 +235,104 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal VIP benefits -->
+    <div
+      class="modal fade"
+      id="vipBenefitsModal"
+      tabindex="-1"
+      aria-labelledby="vipBenefitsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="vipBenefitsModalLabel">
+              VIP Benefits
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Bạn đã là thành viên VIP và có các phúc lợi sau:</p>
+            <ul>
+              <li>Mở khóa Watch trailer</li>
+              <li>Được hỗ trợ nhiệt tình tử admin</li>
+              <li>Sang chảnh hơn với logo VIP</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <form action="/delete-vip" method="post">
+              <button
+                  type="submit"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+              >
+                  Delete Vip
+              </button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal update VIP -->
+    <div
+      class="modal fade"
+      id="updateVipModal"
+      tabindex="-1"
+      aria-labelledby="updateVipModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateVipModalLabel">
+              Buy VIP
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Hãy mua VIP để tận hưởng nhiều ưu đãi!</p>
+          </div>
+          <div class="modal-footer">
+            <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <form action="/buy-vip" method="post">
+            <button
+                type="submit"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+            >
+                Buy vip
+            </button>
+        </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -250,5 +341,16 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script>
+      document.getElementById('vipLogo')?.addEventListener('click', function () {
+        var vipModal = new bootstrap.Modal(document.getElementById('vipBenefitsModal'));
+        vipModal.show();
+      });
+
+      document.getElementById('updateLogo')?.addEventListener('click', function () {
+        var updateModal = new bootstrap.Modal(document.getElementById('updateVipModal'));
+        updateModal.show();
+      });
+    </script>
   </body>
 </html>

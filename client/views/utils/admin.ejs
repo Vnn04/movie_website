@@ -143,6 +143,7 @@
                         <th scope="col">User ID</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Vip member</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -153,6 +154,7 @@
                         <td><%= user.id %></td>
                         <td><%= user.username %></td>
                         <td><%= user.email %></td>
+                        <td><%= user.bought_vip %></td>
                         <td>
                             <!-- Add buttons for actions like edit or delete -->
                             <form action="/api/delete-user/<%= user.id %>" method="POST">

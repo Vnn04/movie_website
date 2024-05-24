@@ -3,6 +3,7 @@ const db = require("../models/index");
 require("dotenv").config();
 const { getJson } = require("serpapi");
 const { add_new_movie, update_rating } = require("../../recommendationSystem/server");
+const { where } = require("sequelize");
 
 var MoviesRecommendByUserId;
 class MovieController {
@@ -62,9 +63,13 @@ class MovieController {
     if (isNaN(movieId)) {
       return res.status(400).send("Invalid movie ID");
     }
-    let movie, movieTitle = "";
+    let movie, movieTitle, user = "";
+    
     try {
       movie = await MovieService.getMovieById(movieId);
+      user = await db.User.findOne({
+        where: {id: userId}
+      })
       MoviesRecommendByUserId = await MovieService.getAllMoviesRecommend(userId);
       if (movie.title) {
         movieTitle = movie.title + " movie";
@@ -72,15 +77,15 @@ class MovieController {
     } catch (e) {
       console.log(e);
     }
-      // const results = await getJson({
-      //   q: movieTitle,
-      //   engine: "google_images",
-      //   ijn: "0",
-      //   api_key: process.env.SECRET_API_GG_IMG_KEY
-      // });
-      // const image_results = results["images_results"];
-      // return res.render("utils/movie_details.ejs", { movie: movie, images: image_results, movieRCM: MoviesRecommendByMvId});
-    return res.render("utils/movie_details.ejs", { movie, movieRCM: MoviesRecommendByUserId });
+      const results = await getJson({
+        q: movieTitle,
+        engine: "google_images",
+        ijn: "0",
+        api_key: process.env.SECRET_API_GG_IMG_KEY
+      });
+      const image_results = results["images_results"];
+      return res.render("utils/movie_details.ejs", { movie: movie, images: image_results, movieRCM: MoviesRecommendByUserId, user: user});
+    // return res.render("utils/movie_details.ejs", { movie, movieRCM: MoviesRecommendByUserId, user: user });
   }
 
   static async handleSearchFilmByName(req, res) {
@@ -94,11 +99,13 @@ class MovieController {
     return res.render("utils/movie.ejs", { movies });
   }
 
-  static handleGetProfile(req, res) {
+  static async handleGetProfile(req, res) {
     if (!req.session.user || !req.session.user) {
       return res.redirect('/login');
     }
-    const user = req.session.user;
+    const user = await db.User.findOne({
+      where: {id: req.session.user.id}
+    })
     return res.render("utils/profile.ejs", { user });
   }
 
