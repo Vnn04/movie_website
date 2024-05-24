@@ -66,9 +66,14 @@
             <a class="nav-link" aria-current="page" href="/api/get-home-after-login">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/api/movie">Movies</a>
+            <a class="nav-link" href="/api/movie">Search</a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="/api/popular">Popular</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/api/playlist">My playlists</a>
+          </li>
           <!-- <li class="nav-item">
                     <a class="nav-link" href="/client/views/auth/login.html">Login</a>
                 </li>
@@ -92,7 +97,7 @@
               src="https://image.tmdb.org/t/p/w1280<%=movie.poster_path%>"
               style="width: 300px; height: 400px"
               class="img-fluid img-thumbnail"
-              alt="..."
+              alt="..." 
             />
           </div>
           <div class="col-md-8">
@@ -100,8 +105,8 @@
               <h3 class="card-title">
                 <%=JSON.stringify(movie.title).replace(/"/g, "")%>
               </h3>
-              <h5>
-                <i class="fas fa-star"></i> <%=JSON.stringify(movie.rating)%>
+              <h5>  
+                <i class="fas fa-star"></i> <%=JSON.stringify(movie.rating.toFixed(2)).replace(/"/g, "")%>
               </h5>
               <ul class="nav">
                 <li class="nav-item">
@@ -166,7 +171,7 @@
         <% for(var i=0; i < 8; i++) { %>
         <div class="col-md-3">
           <div class="card">
-            <img src="<%=images[i].original%>" class="img" alt="<%=JSON.stringify(movie.title)%>" />
+            <img src="<=images[i].original%>" class="img" alt="<%=JSON.stringify(movie.title)%>" />
             <!-- <div class="card-body">
               <p class="card-text">
                 Some quick example text to build on the card title and make up
@@ -177,10 +182,11 @@
         </div>
         <% } %>
     </div>
+    <% if (movieRCM) { %>
     <div><h2>Recommended movies</h2></div>
     <div class="movie-list-wrapper">
       <div class="row">
-    <% for (let i = 0; i < 7; i++) { %>
+    <% for (let i = 19; i > 13; i--) { %>
     <% if(movieRCM[i].id != movie.id) { %> 
     <div class="movie-list-item col-md-2 mb-4">
       <div class="card bgw">
@@ -194,6 +200,7 @@
   <% } %>
   </div>
   </div>
+  <% } %>
     <!-- Footer Section -->
     <footer class="footer mt-5 bg-dark text-white pt-4 pb-4">
       <div class="container">

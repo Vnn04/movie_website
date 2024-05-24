@@ -36,6 +36,12 @@
               <li class="nav-item">
                   <a class="nav-link" href="/api/movie">Movies</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/api/popular">Popular</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/api/playlist">My playlists</a>
+                </li>
               <!-- <li class="nav-item">
                   <a class="nav-link" href="/client/views/auth/login.html">Login</a>
               </li>
@@ -66,13 +72,10 @@
         <div class="col-lg-4 col-md-12">
             <h5>Có thể bạn thích</h5>
             <div class="list-group">
-                <!-- <% for (let i = 0; i < 5; i++) { %>
-                <a href="/api/movie-detail/<%=moviesRCMDT[i].id%>" class="list-group-item list-group-item-action">
-                    <img src="https://image.tmdb.org/t/p/w1280<%=moviesRCMDT[i].poster_path%>" alt="Movie 1" width="100">
-                    <p><%= JSON.stringify(moviesRCMDT[i].title).replace(/"/g, '') %></p>
-                </a>
-                <% } %> -->
-                <% for(let i =0; i < 5; i++) { %>
+
+                <% if(moviesRCMDT) {%>
+                <% for(let i = 1; i < 7; i++) { %>
+                    <% if(moviesRCMDT[i].id != movieId) { %>
                     <article class="w_item_b" id="post-1075699">
                       <a href="/api/movie-detail/<%=moviesRCMDT[i].id%>">
                         <div class="image">
@@ -92,43 +95,8 @@
                       </a>
                     </article>
                     <% } %>
-                <!-- <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_2" alt="Movie 2" width="100">
-                    <p>Movie 2</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_3" alt="Movie 3" width="100">
-                    <p>Movie 3</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_4" alt="Movie 4" width="100">
-                    <p>Movie 4</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_5" alt="Movie 5" width="100">
-                    <p>Movie 5</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_6" alt="Movie 6" width="100">
-                    <p>Movie 6</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_7" alt="Movie 7" width="100">
-                    <p>Movie 7</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_8" alt="Movie 8" width="100">
-                    <p>Movie 8</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_9" alt="Movie 9" width="100">
-                    <p>Movie 9</p>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="path_to_image_of_movie_10" alt="Movie 10" width="100">
-                    <p>Movie 10</p>
-                </a> -->
-
+                    <% } %>
+                    <% } %>
             </div>
         </div>
     </div>

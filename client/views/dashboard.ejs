@@ -49,9 +49,9 @@
                     <span class="material-icons-outlined">manage_accounts</span> Manage
                 </li>
                 </a>
-                <a href="/api/get-home-after-login" class="a">
+                <a href="/logout" class="a">
                     <li class="sidebar-list-item">
-                        <span class="material-icons-outlined">home</span> Home
+                        <span class="material-icons-outlined">logout</span> Logout
                      </li>
                 </a>
                 
@@ -114,7 +114,7 @@
 
             <div class="charts">
                 <div class="charts-card">
-                    <h2 class="chart-title">Top 5 Products</h2>
+                    <h2 class="chart-title">Top 5 Genres</h2>
                     <div id="bar-chart"></div>
                 </div>
         
@@ -132,6 +132,6 @@
     <!-- ApexCharts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.0/apexcharts.min.js"></script>
     <!-- Custom JS -->
-    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard.js" actionCount= "<%= moviesCountArray[0] %>" adventureCount="<%= moviesCountArray[1] %>" animationCount= "<%= moviesCountArray[2] %>" comedyCount="<%= moviesCountArray[3] %>" crimeCount= "<%= moviesCountArray[4] %>"></script>
 </body>
 </html>

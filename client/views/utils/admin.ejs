@@ -9,10 +9,15 @@
         .container {
             margin-top: 20px;
         }
+        
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="/get-dashboard" class="a">
+            <img src="/imgs/image.png" alt="Dashboard" style="width: 48px; height: 48px;">
+
+        </a>
         <h2>Add New Movie</h2>
         <form action="/add-movie" method="POST">
             <div class="mb-3">
@@ -128,7 +133,36 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <%=JSON.stringify(message.errMessage)%>
+ 
         </form>
+            <!-- User Management -->
+            <h2>User Management</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Here you will dynamically generate rows for each user -->
+                    <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.id %></td>
+                        <td><%= user.username %></td>
+                        <td><%= user.email %></td>
+                        <td>
+                            <!-- Add buttons for actions like edit or delete -->
+                            <form action="/api/delete-user/<%= user.id %>" method="POST">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>                        
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

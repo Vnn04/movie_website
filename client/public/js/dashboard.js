@@ -1,5 +1,7 @@
 //Sidebar toggle
 
+
+
 var sidebarOpen = false;
 var sidebar = document.getElementById("sidebar");
 
@@ -17,14 +19,19 @@ function closeSidebar() {
     }
 }
 
+let action = document.currentScript.getAttribute('actionCount');
+let adventure = document.currentScript.getAttribute('adventureCount');
+let animation = document.currentScript.getAttribute('animationCount');
+let comedy = document.currentScript.getAttribute('comedyCount');
+let crime = document.currentScript.getAttribute('crimeCount');
 
 //------- CHARTS -------
 
 //BAR CHART
 var barChartOptions = {
   series: [{
-    data: [10, 8, 6, 4, 2],
-    name: "Products",
+    data: [action, adventure, comedy, animation, crime],
+    name: "Movies",
   }],
   chart: {
     type: 'bar',
@@ -86,7 +93,7 @@ var barChartOptions = {
     theme: "dark",
   },
   xaxis: {
-    categories: ['Laptop', 'Phone', 'Monitor', 'Headphones', 'Camera'],
+    categories: ['Action', 'Adventure', 'Comedy', 'Animation', 'Crime'],
     title: {
         style: {
             color: "#f5f7ff",
@@ -94,11 +101,11 @@ var barChartOptions = {
     },
     axisBorder: {
         show: true, 
-        color: "#55596e",
+        color: "#f5f7ff",
     },
     axisTicks: {
         show: true,
-        color: "#55596e",
+        color: "#f5f7ff",
     },
     labels: {
         style: {
@@ -114,11 +121,11 @@ var barChartOptions = {
         },
     },
     axisBorder: {
-        color: "#55596e",
+        color: "#f5f7ff",
         show: true,
     },
     axisTicks: {
-        color: "#55596e",
+        color: "#f5f7ff",
         show: true,
     }, 
     label: {

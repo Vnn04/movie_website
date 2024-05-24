@@ -21,6 +21,56 @@
 
 </head>
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .featured-text {
+        text-align: center;
+        color: white;
+        background: rgba(0, 0, 0, 0.5); /* Optional: Add a semi-transparent background for better readability */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .featured-title {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .featured-desc {
+        font-size: 1.2em;
+    }
+    .featured-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px; /* Adjust the height as needed */
+    background-size: cover;
+    background-position: center;
+    }
+
+    .hot-label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .vertical-line {
+    display: inline-block;
+    width: 9px; /* Độ rộng của dấu gạch */
+    height: 100%; /* Chiều cao của dấu gạch bằng chiều cao của tiêu đề */
+    background-color: #007bff !important; /* Màu của dấu gạch, thay đổi nếu cần */
+    margin-right: 10px; /* Khoảng cách giữa dấu gạch và văn bản */
+    }
+</style>
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-auto p-3">
@@ -37,7 +87,7 @@
                     <a class="nav-link active" aria-current="page" href="/api/get-home-after-login">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/api/movie">Movies</a>
+                    <a class="nav-link" href="/api/movie">Search</a>
                 </li>
 
                 <!-- <li class="nav-item">
@@ -46,6 +96,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/client/views/auth/register.html">Register</a>
                 </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/api/popular">Popular</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/api/playlist">My playlists</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
@@ -64,16 +120,17 @@
     <!-- carousel slide -->
     <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
-        <% for (let i= 0; i < 5 ; i++) { %>
+        <% for (let i= 0; i < 3  ; i++) { %>
             <div class="carousel-item active">
-                <!-- <img src="" class="d-block w-100" alt="..."> -->
-                <a href="/api/movie-detail/<%=listMovies[i].id%><"> <div class="featured-content"
-                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('https://image.tmdb.org/t/p/w1280<%=listMovies[i].poster_path%>');">
-                    <!-- <img class="featured-title" src="..." alt=""> -->
-                    <p class="featured-desc"></p>
-                    <button class="btn btn-success featured-button">WATCH</button>
-                </div></a>
+                <a href="/api/movie-detail/<%=listMovies[i].id%>">
+                    <div class="featured-content"
+                        style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('https://image.tmdb.org/t/p/w1280<%=listMovies[i].poster_path%>'); background-size: cover; background-position: center; height: 500px; display: flex; align-items: center; justify-content: center; position: relative;">
+                        
+                        <div class="hot-label">NEW</div>
+                    </div>
+                </a>
             </div>
+            
         <% } %>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -95,44 +152,27 @@
     </div>
 
     <!-- feature -->
-    <div class="row mt-5 m-auto p-2">
+    <div class="row mt-5 m-auto p-2" style="background-color: #151515;">
+        <% if(listRCMDT) { %>
         <div class="col-md-12">
-            <h1 class="movie-list-title">RECOMMEND FOR YOU</h1>
+            <h1 class="movie-list-title" style="color: aliceblue;"><span class="vertical-line" style="color: rgb(83, 166, 179);">.</span>RECOMMEND FOR YOU</h1>
             <div class="movie-list-wrapper">
                 <div class="row">
                     <% for (let i = 0; i < 6; i++) { %>
                     <div class="col-md-4 mb-3">
-                        <div class="card">
+                        <div class="card" style="background-color: black;">
                             <a href="/api/movie-detail/<%=listRCMDT[i].id%>"> <img src="https://image.tmdb.org/t/p/w1280/<%=listRCMDT[i].poster_path%>" class="card-img-top" alt="<%=JSON.stringify(listRCMDT[i].title)%>"></a>
                             <div class="card-body">
-                                <p class="card-text"><%=JSON.stringify(listRCMDT[i].title)%></p>
+                                <h4 class="card-text" style="color: white;"><%=JSON.stringify(listRCMDT[i].title).replace(/"/g, "")%></h4>
                             </div>
                         </div>
                     </div>
                     <% } %>
-                    <!-- <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div> 
                 </div>
             </div>
         </div>
-    </div> -->
+        <% } %>
+    </div>
 
     <!-- Footer Section -->
     <footer class="footer mt-5 bg-dark text-white pt-4 pb-4">

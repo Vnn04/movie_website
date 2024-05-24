@@ -19,8 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     watch: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Watch_trailer',
-    timestamps:false
+    modelName: 'watch_trailer',
+    timestamps:false,
+    freezeTableName: true
   });
   return Watch_trailer;
 };

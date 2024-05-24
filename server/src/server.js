@@ -2,7 +2,8 @@ import express from "express";
 let { initUserAPIRoutes } = require("./route/userAPI");
 let { initMovieAPIRoutes } = require("./route/movieAPI");
 const { configViewEngine } = require("./config/viewEngine"); //import các config từ file viewEngine
-const {initAuthRoutes} = require('./route/auth.route')
+const {initAuthRoutes} = require('./route/auth.route');
+const {initAdminAPIRoutes} = require("./route/admin.route")
 let session = require("express-session");
 let { connect } = require("./config/connectDB");
 require("dotenv").config();
@@ -37,6 +38,7 @@ app.use(function(err, req, res, next) {
 initUserAPIRoutes(app);
 initMovieAPIRoutes(app)
 initAuthRoutes(app)
+initAdminAPIRoutes(app)
 
 
 //check connect db

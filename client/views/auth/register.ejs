@@ -61,11 +61,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="psw-repeat" class="form-label">Repeat Password</label>
-            <input type="password" class="form-control" id="psw-repeat" placeholder="Repeat Password" name="psw-repeat" required>
-        </div>
-
-        <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username" required>
         </div>
@@ -87,7 +82,11 @@
 
         <div class="mb-3">
             <label for="gender" class="form-label">Gender</label>
-            <input type="text" class="form-control" id="gender" placeholder="Enter Gender" name="gender" required>
+            <select class="form-control" id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -97,11 +96,10 @@
 
         <hr />
 
-        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
         <button type="submit" class="btn btn-primary">Register</button>
 
-        <%=JSON.stringify(message.errMessage)%>
+        <%=JSON.stringify(message.errMessage).replace(/"/g, "")%>
     </form>
 
     <div class="container mt-3 text-center">

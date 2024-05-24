@@ -1,43 +1,21 @@
 var express = require("express");
-let {
-  handleGetAllMovie,
-  handleGetSeries,
-  handleGetMovie,
-  handleGetPopular,
-  handleGetPlaylist,
-  handleGetMovieDetail,
-  handleSearchFilmByName,
-  handleGetProfile,
-  handleAddList,
-  handleGetWatchTrailer,
-  handleGetHomeAfterLogin,
-  handleVoteRating,
-  handleGetAdmin,
-  handleAddFilm,
-  handleGetDashboard
-} = require("../controllers/movieController");
+const MovieController = require("../controllers/movieController");
 let router = express.Router();
 let authMiddleware = require("../middleware/auth.middleware");
 
 let initMovieAPIRoutes = (app) => {
-  router.get("/", authMiddleware.loggedin, handleGetAllMovie);
-  router.get("/api/series", handleGetSeries);
-  router.get("/api/movie", handleGetMovie);
-  router.get("/api/popular", handleGetPopular);
-  router.get("/api/playlist", handleGetPlaylist);
-  router.get("/api/movie-detail/:id", handleGetMovieDetail);
-  router.get("/api/profile", handleGetProfile);
-  router.get("/add-list/:id", handleAddList);
-  router.post("/search", handleSearchFilmByName);
-  router.get("/api/watch-trailer/:id", handleGetWatchTrailer)
-  router.get("/api/get-home-after-login", handleGetHomeAfterLogin);
+  router.get("/", authMiddleware.loggedin, MovieController.handleGetAllMovie);
+  router.get("/api/movie", MovieController.handleGetMovie);
+  router.get("/api/popular", MovieController.handleGetPopular);
+  router.get("/api/playlist", MovieController.handleGetPlaylist);
+  router.get("/api/movie-detail/:id", MovieController.handleGetMovieDetail);
+  router.get("/api/profile", MovieController.handleGetProfile);
+  router.get("/add-list/:id", MovieController.handleAddList);
+  router.post("/search", MovieController.handleSearchFilmByName);
+  router.get("/api/watch-trailer/:id", MovieController.handleGetWatchTrailer);
+  router.get("/api/get-home-after-login", MovieController.handleGetHomeAfterLogin);
 
-  router.post('/submit-rating', handleVoteRating)
-
-  // admin function
-  router.get("/get/admin", handleGetAdmin)
-  router.post("/add-movie", handleAddFilm)
-  router.get("/get-dashboard", handleGetDashboard)
+  router.post('/submit-rating', MovieController.handleVoteRating);
   return app.use("/", router);
 };
 

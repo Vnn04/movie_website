@@ -118,9 +118,12 @@ async function add_new_movie(id, action, adventure, animation, comedy, crime, do
 }
 // Sử dụng các hàm trên
 
-// const movieID = 11;
-// const userID = 200;
-// add_new_user(200, 1, '1991-10-12');
+const movieID = 100;
+// const userID = 239;
+
+// add_new_user(239, 9, '1991-10-12');
+// add_new_movie(100, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1)
+
 
 // getRecommendationsByMovieID(movieID)
 //     .then(recommendations => {
@@ -142,11 +145,18 @@ async function add_new_movie(id, action, adventure, animation, comedy, crime, do
 //     });
 
 
-// update_rating(0, 11, 2);
-// update_view(0, 11, 100);
-// update_watch_trailer(0, 11, 90);
+// // update_view(0, 11, 100);
+// // update_watch_trailer(0, 11, 90);
+// update_rating(0, 284052, 1);
 
-// add_new_movie(123, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1);
+// getRecommendationsByUserID(userID)
+//     .then(recommendations => {
+//         console.log('Recommendations by user ID:', recommendations);
+//         console.log('Recommendation movie [1]', recommendations.result[1]);
+//     })
+//     .catch(error => {
+//         console.error('Error getting recommendations by user ID:', error);
+//     });
 
 module.exports = {
     getRecommendationsByUserID,

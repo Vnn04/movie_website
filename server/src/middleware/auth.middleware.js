@@ -15,3 +15,22 @@ exports.isAuth = (req, res, next) => {
         next()
     }
 }
+
+exports.Adminloggedin = (req, res, next) => {
+    if(req.session.loggedin) {
+        res.locals.user = req.session.user
+        next();
+    }else {
+        res.redirect('/login-admin')
+    }
+}
+
+exports.isAuthAdmin = (req, res, next) => {
+    if(req.session.loggedin) {
+        res.locals.user = req.session.user
+        res.redirect('/get-dashboard')
+    } else {
+        next()
+    }
+}
+

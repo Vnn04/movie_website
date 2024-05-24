@@ -1,83 +1,50 @@
-let {
-  handleUserLogin,
-  getAllUser,
-  createNewUser,
-  updateUserData,
-  deleteUser
-} = require("../services/userService");
+const UserService = require("../services/userService");
 
-let {add_new_user} = require("../../recommendationSystem/server")
-
-let handleLogin = async (req, res) => {
-  let email = req.body.email;
-  let password = req.body.password;
-  let userData = await handleUserLogin(email, password);
-  if(userData.errCode == 0) {
-    res.redirect('/')
-  }else res.render('auth/login.ejs', {userData: userData})
-};
-
-let handleGetAllUsers = async (req, res) => {
-  let id = req.query.id; //All, id
-  if (!id) {
-    return res.status(404).json({
-      errCode: 1,
-      errMessage: "Missing id",
-      users: {},
-    });
+class UserController {
+  constructor() {
+    this.userService = UserService;
   }
-  let users = await getAllUser(id);
-  return res.status(200).json({
-    errCode: 0,
-    errMessage: "get user success",
-    users,
-  });
-};
 
-let handleCreateNewUser = async (req, res) => {
-  let user = req.body;
-  let message = await createNewUser(user);
-  await add_new_user(message.user.id, message.user.gender, message.user.date_of_birth)
-  return res.render("auth/register.ejs", {message: message});
-};
-
-let handleEditUser = async (req, res) => {
-  let data = req.body;
-  let user = req.session.user
-  console.log(user.id)
-  let message = await updateUserData(data, user);
-  console.log(message.errCode)
-  res.render('utils/profile.ejs', {user: message.user})
-  // return res.status(200).json({message});
-};
-
-let handleDeleteUser = async (req, res) => {
-  if (!req.body.id) {
+  async handleGetAllUsers(req, res) {
+    let id = req.query.id; // All, id
+    if (!id) {
+      return res.status(404).json({
+        errCode: 1,
+        errMessage: "Missing id",
+        users: {},
+      });
+    }
+    let users = await UserService.getAllUser(id);
     return res.status(200).json({
-      errCode: 1,
-      errMessage: "Missing required parameters!",
+      errCode: 0,
+      errMessage: "Get user success",
+      users,
     });
   }
-  let message = await deleteUser(req.body.id);
-  return res.status(200).json(message);
-};
 
-let handleGetLogin = (req, res) => {
-  let userData = {errCode:0}
-  res.render("auth/login.ejs", {userData: userData});
+  async handleEditUser(req, res) {
+    let data = req.body;
+    let user = req.session.user;
+    let message = await UserService.updateUserData(data, user);
+    res.render('utils/profile.ejs', { user: message.user });
+  }
+
+  async handleDeleteUser(req, res) {
+    if (!req.body.id) {
+      return res.status(200).json({
+        errCode: 1,
+        errMessage: "Missing required parameters!",
+      });
+    }
+    let message = await this.userService.deleteUser(req.body.id);
+    return res.status(200).json(message);
+  }
+
+  handleGetLogin(req, res) {
+    let userData = { errCode: 0 };
+    res.render("auth/login.ejs", { userData: userData });
+  }
+
 }
 
-let handleGetSignUp = (req, res) => {
-  let message = {errMessage: ""}
-  res.render('auth/register.ejs', {message:message});
-}
-
-module.exports = {
-  handleLogin,
-  handleGetAllUsers,
-  handleCreateNewUser,
-  handleEditUser,
-  handleDeleteUser,
-  handleGetLogin,
-  handleGetSignUp
-};
+module.exports = new UserController();

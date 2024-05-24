@@ -1,7 +1,9 @@
-const { createNewUser } = require("../services/userService");
+const UserService = require("../services/userService");
 const bcrypt = require("bcrypt");
 const mailer = require('../utils/mailer')
 const db = require("../models/index");
+const { add_new_user } = require("../../recommendationSystem/server");
+
 exports.create = (req, res) => {
   let message = { errMessage: "" };
   res.render("auth/register.ejs", { message: message });
@@ -9,7 +11,10 @@ exports.create = (req, res) => {
 
 exports.register = async (req, res) => {
   const user = req.body;
-  const message = await createNewUser(user);
+  const message = await UserService.createNewUser(user);
+  if (message.errCode == 0) {
+    await add_new_user(message.user.id, message.user.gender, message.user.date_of_birth);
+  }
   if (message.errCode == 1) {
     res.render("auth/register", { message: message.errMessage });
   }
