@@ -12,6 +12,8 @@ let initAdminAPIRoutes = (app) => {
   router.post("/add-movie", AdminController.handleAddFilm)
   router.get("/get-dashboard", authMiddleware.Adminloggedin,AdminController.handleGetDashboard)
   router.post('/api/delete-user/:id', AdminController.handleDeleteUser);
+  router.post('/api/delete-movie/:id', AdminController.handleDeleteMovie);
+
   return app.use("/", router);
 };
 

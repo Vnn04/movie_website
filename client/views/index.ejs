@@ -152,14 +152,14 @@
     </div>
 
     <!-- feature -->
-    <div class="row mt-5 m-auto p-2" style="background-color: #151515;">
+    <div class="row mt-3 m-auto p-2" style="background-color: #151515;">
         <% if(listRCMDT) { %>
         <div class="col-md-12">
             <h1 class="movie-list-title" style="color: aliceblue;"><span class="vertical-line" style="color: rgb(83, 166, 179);">.</span>RECOMMEND FOR YOU</h1>
             <div class="movie-list-wrapper">
                 <div class="row">
-                    <% for (let i = 0; i < 6; i++) { %>
-                    <div class="col-md-4 mb-3">
+                    <% for (let i = 0; i < 12; i++) { %>
+                    <div class="col-md-3 mb-2">
                         <div class="card" style="background-color: black;">
                             <a href="/api/movie-detail/<%=listRCMDT[i].id%>"> <img src="https://image.tmdb.org/t/p/w1280/<%=listRCMDT[i].poster_path%>" class="card-img-top" alt="<%=JSON.stringify(listRCMDT[i].title)%>"></a>
                             <div class="card-body">

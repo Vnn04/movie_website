@@ -80,6 +80,57 @@ class AdminService {
       }
     });
   }
+  static async deleteMovie(movieId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let movie = await db.Movie.findOne({
+          where: { id: movieId },
+        });
+        if (!movie) {
+          resolve({
+            errCode: 2,
+            errMessage: "The movie doesn't exist",
+          });
+        } else {
+          try {
+            await db.rating.destroy({
+              where: {movieID: movieId}
+            })
+          } catch (error) {
+            console.log(error)
+          }
+          try {
+            await db.History.destroy({
+              where: {movieId: movieId}
+            })
+          } catch (error) {
+            console.log(error)
+          }
+          try {
+            await db.Viewed.destroy({
+              where: {movieID: movieId}
+            })
+          } catch (error) {
+            console.log(error)
+          }
+            await db.watch_trailer.destroy({
+              where: {movieID: movieId}
+            })
+            console.log("loi cmnr")
+
+          await db.Movie.destroy({
+            where: { id: movieId },
+          });
+          resolve({
+            errCode: 0,
+            errMessage: "The movie has been deleted",
+          });
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
 }
 
 module.exports = AdminService;

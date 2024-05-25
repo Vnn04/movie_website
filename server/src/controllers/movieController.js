@@ -16,11 +16,11 @@ class MovieController {
     try {
       allMovies = await MovieService.getAllMovies();
       moviesTopRating = await MovieService.getMovieOrderByRating();
-      recommendations = await MovieService.getAllMoviesRecommend(userID);
+      MoviesRecommendByUserId = await MovieService.getAllMoviesRecommend(userID);
     } catch (e) {
       console.log(e);
     }
-    return res.render("index.ejs", { listMovies: allMovies, moviesTopRating, listRCMDT: recommendations });
+    return res.render("index.ejs", { listMovies: allMovies, moviesTopRating, listRCMDT: MoviesRecommendByUserId });
   }
 
 
@@ -70,7 +70,7 @@ class MovieController {
       user = await db.User.findOne({
         where: {id: userId}
       })
-      MoviesRecommendByUserId = await MovieService.getAllMoviesRecommend(userId);
+      // MoviesRecommendByUserId = await MovieService.getAllMoviesRecommend(userId);
       if (movie.title) {
         movieTitle = movie.title + " movie";
       }
@@ -88,7 +88,7 @@ class MovieController {
     // return res.render("utils/movie_details.ejs", { movie, movieRCM: MoviesRecommendByUserId, user: user });
   }
 
-  static async handleSearchFilmByName(req, res) {
+  static async handleSearchFilmByName(req, res) { 
     let name = req.body.search;
     let movies;
     try {
@@ -146,9 +146,9 @@ class MovieController {
     let userID = req.session.user ? req.session.user.id : 1;
     let recommendations, allMovies, moviesTopRating;
     try {
-      recommendations = await MovieService.getAllMoviesRecommend(userID);
       allMovies = await MovieService.getAllMovies();
       moviesTopRating = await MovieService.getMovieOrderByRating();
+      recommendations = await MovieService.getAllMoviesRecommend(userID);
     } catch (e) {
       console.log(e);
     }

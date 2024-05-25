@@ -1,4 +1,5 @@
 const AdminService = require("../services/adminService");
+const MovieService = require("../services/movieService")
 const UserService = require("../services/userService");
 import db from "../models/index";
 require("dotenv").config();
@@ -8,10 +9,11 @@ class AdminController {
   static async handleGetAdmin(req, res) {
     let message = "";
     let users = await UserService.getAllUser("ALL")
-    res.render("utils/admin.ejs", { message: message, users: users });
+    let movies = await MovieService.getAllMovies();
+    res.render("utils/admin.ejs", { message: message, users: users, movies: movies });
   }
 
-  static async handleAddFilm(req, res) {
+  static async handleAddFilm(req, res) {  
     let movie = req.body;
     console.log(movie);
     let message = "";
@@ -50,7 +52,8 @@ class AdminController {
       };
     }
     let users = await UserService.getAllUser("ALL")
-    return res.render("utils/admin.ejs", { message: message, users: users});
+    let movies = await MovieService.getAllMovies();
+    return res.render("utils/admin.ejs", { message: message, users: users, movies: movies});
   }
 
   static async handleGetDashboard(req, res) {
@@ -88,10 +91,25 @@ class AdminController {
   static async handleDeleteUser(req, res) {
     if (!req.params.id) {
       console.log(req.params)
-      return res.redirect('/login')
+      return res.redirect('/login') 
     }
     try {
       await UserService.deleteUser(req.params.id);
+      console.log("oke rồi")
+    } catch (e) {
+      console.log(e);
+    }
+
+    return res.redirect(req.headers.referer || '/');
+  }
+
+  static async handleDeleteMovie(req, res) {
+    if (!req.params.id) {
+      console.log(req.params)
+      return res.redirect('/login')
+    }
+    try {
+      await AdminService.deleteMovie(req.params.id);
       console.log("oke rồi")
     } catch (e) {
       console.log(e);
@@ -103,4 +121,5 @@ class AdminController {
 
 
 
-module.exports = AdminController;
+module.exports = AdminController; 
+

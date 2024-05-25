@@ -5,7 +5,6 @@ let { getRecommendationsByUserID, getRecommendationsByMovieID } = require("../..
 
 class MovieService {
   static async getAllMovies() {
-    console.log(await db.User.count())
     return new Promise(async (resolve, reject) => {
       try {
         let movies = await db.Movie.findAll({
@@ -151,7 +150,7 @@ class MovieService {
     return new Promise(async (resolve, reject) => {
       try {
         let movies = await db.sequelize.query(
-          `SELECT m.id, m.title, m.poster_path, m.overview, m.release_date 
+          `SELECT m.id, m.title, m.poster_path, m.overview, m.release_date, v.view
            FROM Movies m 
            RIGHT JOIN Viewed v ON m.id = v.movieID 
            ORDER BY v.view DESC`,
@@ -183,6 +182,7 @@ class MovieService {
       }
     });
   }
+  
 }
 
 module.exports = MovieService;
