@@ -67,7 +67,7 @@ Make sure you have the following installed:
         ```
 
 4. **Finalize the Server Setup**
-    - First, in folder server add file .env and paste content in file .env.example into it, fill the missing infomation.
+    - First, in folder server add file .env and paste content in file .env.example into it, fill the missing infomation. with MAIL_USERNAME= your_email (Your email has 2-layer security)  MAIL_PASSWORD= your_password(app passwrod or your password of your email), MAIL_FROM_ADDRESS= your_email (Your email has 2-layer security), SECRET_API_GG_IMG_KEY= your_api_google_image_key. 
     - Navigate back to the `server` directory:
         ```sh
         cd ../server
