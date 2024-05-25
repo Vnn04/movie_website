@@ -1,13 +1,13 @@
 const axios = require('axios');
 
 // Định nghĩa các URL của các endpoint API của Flask
-const recommendByMovieIDURL = 'http://localhost:5000/recommend_by_movieID';
-const recommendByUserIDURL = 'http://localhost:5000/recommend_by_userID';
-const add_new_userURL = 'http://localhost:5000/add_new_user';
-const update_ratingURL = 'http://localhost:5000/update_rating';
-const update_viewURL = 'http://localhost:5000/update_view';
-const update_watch_trailerURL = 'http://localhost:5000/update_watch_trailer';
-const add_new_movieURL = 'http://localhost:5000/add_new_movie';
+const recommendByMovieIDURL = 'http://127.0.0.1:5000/recommend_by_movieID';
+const recommendByUserIDURL = 'http://127.0.0.1:5000/recommend_by_userID';
+const add_new_userURL = 'http://127.0.0.1:5000/add_new_user';
+const update_ratingURL = 'http://127.0.0.1:5000/update_rating';
+const update_viewURL = 'http://127.0.0.1:5000/update_view';
+const update_watch_trailerURL = 'http://127.0.0.1:5000/update_watch_trailer';
+const add_new_movieURL = 'http://127.0.0.1:5000/add_new_movie';
 
 
 // Hàm gửi yêu cầu API đến endpoint recommend_by_movieID của Flask
@@ -23,7 +23,6 @@ async function getRecommendationsByMovieID(movieID) {
     }
 }
 
-// Hàm gửi yêu cầu API đến endpoint recommend_by_userID của Flask
 async function getRecommendationsByUserID(userID) {
     try {
         const response = await axios.post(recommendByUserIDURL, {
@@ -118,7 +117,7 @@ async function add_new_movie(id, action, adventure, animation, comedy, crime, do
 }
 // Sử dụng các hàm trên
 
-const movieID = 100;
+// const movieID = 100;
 // const userID = 239;
 
 // add_new_user(239, 9, '1991-10-12');
