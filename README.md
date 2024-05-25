@@ -67,6 +67,7 @@ Make sure you have the following installed:
         ```
 
 4. **Finalize the Server Setup**
+    - First, in folder server add file .env and paste content in file .env.example into it, fill the missing infomation.
     - Navigate back to the `server` directory:
         ```sh
         cd ../server
